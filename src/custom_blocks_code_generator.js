@@ -1,23 +1,17 @@
 Blockly.JavaScript['motion_moveforward'] = function(block) {
   var number_steps = block.getFieldValue('steps');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  return `  Otto.walk(${number_steps},1000,1); //${number_steps} steps, "TIME". IF HIGHER THE VALUE THEN SLOWER (from 600 to 1400), 1 FORWARD\n`;
 };
 
 Blockly.JavaScript['motion_moveback'] = function(block) {
   var number_steps = block.getFieldValue('steps');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  return `  Otto.walk(${number_steps},1000,-1); //${number_steps} steps, T, -1 BACKWARD\n`;
 };
 
 Blockly.JavaScript['motion_turndirection'] = function(block) {
-  var angle_angle = block.getFieldValue('angle');
-  var dropdown_direction = block.getFieldValue('direction');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  //TODO var angle_angle = block.getFieldValue('angle');
+  var direction = direction === 'RIGHT' ? 1 : 0;
+  return `  Otto.turn(2,1000,${direction});\n`;
 };
 
 Blockly.JavaScript['motion_dance'] = function(block) {
@@ -48,9 +42,38 @@ Blockly.JavaScript['operator_hasobstruction'] = function(block) {
 };
 
 Blockly.JavaScript['event_start'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  return `
+#include <Servo.h> 
+#include <Oscillator.h>
+#include <Otto.h>
+Otto Otto;  //This is Otto!
+//----------------------------------------------------------------------
+//-- Make sure the servos are in the right pin
+/*             -------- 
+              |  O  O  |
+              |--------|
+  RIGHT LEG 3 |        | LEFT LEG 2
+               -------- 
+               ||     ||
+RIGHT FOOT 5 |---     ---| LEFT FOOT 4     
+*/
+  #define PIN_LEFTLEG 2 //servo[2]
+  #define PIN_RIGHTLEG 3 //servo[3]
+  #define PIN_LEFTFOOT 4 //servo[4]
+  #define PIN_RIGHTFOOT 5 //servo[5]
+///////////////////////////////////////////////////////////////////
+//-- Setup ------------------------------------------------------//
+///////////////////////////////////////////////////////////////////
+void setup(){
+  Otto.init(PIN_LEFTLEG,PIN_RIGHTLEG,PIN_LEFTFOOT,PIN_RIGHTFOOT,true); //Set the servo pins
+  Otto.sing(S_connection); //Otto wake up!
+  Otto.home();
+  delay(50);
+}
+///////////////////////////////////////////////////////////////////
+//-- Principal Loop ---------------------------------------------//
+///////////////////////////////////////////////////////////////////
+void loop() {\n`;
 };
 
 Blockly.JavaScript['event_touchhead'] = function(block) {
@@ -61,16 +84,15 @@ Blockly.JavaScript['event_touchhead'] = function(block) {
 
 Blockly.JavaScript['control_waitseconds'] = function(block) {
   var number_seconds = block.getFieldValue('seconds');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  return `  delay(${number_seconds * 1000});\n`;
 };
 
 Blockly.JavaScript['control_whiletrue'] = function(block) {
   var statements_loop = Blockly.JavaScript.statementToCode(block, 'loop');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  return `
+  while (true) {
+    ${statements_loop}
+  };\n`;
 };
 
 Blockly.JavaScript['control_dowhile'] = function(block) {

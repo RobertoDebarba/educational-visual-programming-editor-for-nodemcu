@@ -1,26 +1,3 @@
-/**
- * Blockly Demos: Code
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview JavaScript for Blockly's Code demo.
- * @author fraser@google.com (Neil Fraser)
- */
 'use strict';
 
 /**
@@ -32,8 +9,7 @@ var Index = {};
  * Lookup for names of supported languages.  Keys should be in ISO 639 format.
  */
 Index.LANGUAGE_NAME = {
-  'en': 'English',
-  'pt-br': 'Português Brasileiro',
+  'pt-br': 'Português Brasileiro'
 };
 
 /**
@@ -66,8 +42,8 @@ Index.getStringParamFromUrl = function(name, defaultValue) {
 Index.getLang = function() {
   var lang = Index.getStringParamFromUrl('lang', '');
   if (Index.LANGUAGE_NAME[lang] === undefined) {
-    // Default to English.
-    lang = 'en';
+    // Default to Portugues.
+    lang = 'pt-br';
   }
   return lang;
 };
