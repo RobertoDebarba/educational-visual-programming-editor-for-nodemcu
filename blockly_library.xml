@@ -321,7 +321,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="5c6oN!R-2YBQo7rl%nU+">
         <mutation colour="#5b67a5"></mutation>
-        <field name="HUE">230</field>
+        <field name="HUE">290</field>
       </block>
     </value>
   </block><block type="factory_base" id="ba{gJepK|qUQ*c-~;|rG" deletable="false" movable="false" x="10" y="10">
@@ -355,7 +355,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="?-jH_%Kydc7s%IgJfA2-">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">50</field>
       </block>
     </value>
   </block><block xmlns="http://www.w3.org/1999/xhtml" type="factory_base" id="Xu38nN`i6j{@eJ[N/W})" deletable="false" movable="false" x="10" y="10">
@@ -389,7 +389,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="$8-O2R~gKK%Vk*Wz9RA=">
         <mutation colour="#5b67a5"></mutation>
-        <field name="HUE">230</field>
+        <field name="HUE">50</field>
       </block>
     </value>
   </block><block type="factory_base" id="Cd[XkqJbPrC~$a;0P+5[" deletable="false" movable="false" x="10" y="10">
@@ -440,7 +440,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="g#dXK^,#]U#!=a!aK*LL">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">120</field>
       </block>
     </value>
   </block><block type="factory_base" id="I{3vWq#+Tho-iO.@Ak)3" deletable="false" movable="false" x="10" y="10">
@@ -481,7 +481,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="7cUvq_Kh{+=A3x%U1;,H">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">120</field>
       </block>
     </value>
   </block><block type="factory_base" id="7-YV6S)~d~,wRwcR`3Fd" deletable="false" movable="false" x="10" y="10">
@@ -531,7 +531,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="Zv+.#K(j[rnKcjX9*%p,">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">120</field>
       </block>
     </value>
   </block><block type="factory_base" id="4e4XVQx@]p!?#*+R%Wj_" deletable="false" movable="false" x="10" y="10">
@@ -586,7 +586,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="g0Q[jnal{_i;?IPsF9}w">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">120</field>
       </block>
     </value>
   </block><block type="factory_base" id="2hCcNBz8h+/0Mbfm;}fh" deletable="false" movable="false" x="10" y="10">
@@ -641,7 +641,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="n(rmpY_6cmdLAI6JAv|Y">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">120</field>
       </block>
     </value>
   </block><block type="factory_base" id="urAd#qvD(J=F|Nrh}-/q" deletable="false" movable="false" x="10" y="10">
@@ -710,7 +710,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="Dc0*mdLZ.cdO@@4L-cJs">
         <mutation colour="#5b67a5"/>
-        <field name="HUE">230</field>
+        <field name="HUE">120</field>
       </block>
     </value>
   </block></xml>

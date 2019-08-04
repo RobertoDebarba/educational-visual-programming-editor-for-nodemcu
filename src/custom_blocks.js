@@ -84,7 +84,7 @@ Blockly.Blocks['operator_hasobstruction'] = {
     this.appendDummyInput()
         .appendField("Tem obstáculo");
     this.setOutput(true, "Boolean");
-    this.setColour(230);
+    this.setColour(290);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -95,7 +95,7 @@ Blockly.Blocks['event_start'] = {
     this.appendDummyInput()
         .appendField("Começar");
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(50);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -106,7 +106,7 @@ Blockly.Blocks['event_touchhead'] = {
     this.appendDummyInput()
         .appendField("Tocou na cabeça");
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(50);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -120,7 +120,7 @@ Blockly.Blocks['control_waitseconds'] = {
         .appendField("segundos");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -133,7 +133,7 @@ Blockly.Blocks['control_whiletrue'] = {
         .appendField("Repita para sempre");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -148,7 +148,7 @@ Blockly.Blocks['control_dowhile'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -163,7 +163,7 @@ Blockly.Blocks['control_for'] = {
         .appendField("vezes");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -179,7 +179,7 @@ Blockly.Blocks['control_if'] = {
         .appendField("então");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -198,7 +198,7 @@ Blockly.Blocks['control_ifelse'] = {
         .appendField("senão");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
