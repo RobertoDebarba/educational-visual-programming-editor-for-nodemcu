@@ -58,10 +58,6 @@
   <textarea id="content_xml" class="content" wrap="off"></textarea>
 
   <xml id="toolbox" style="display: none">
-    <category name="Eventos" colour="50">
-      <block type="event_start"></block>
-      <block type="event_touchhead"></block>
-    </category>
     <category name="Controles" colour="140">
       <block type="control_waitseconds"></block>
       <block type="control_whiletrue"></block>
@@ -77,9 +73,15 @@
       <block type="motion_feeling"></block>
       <block type="motion_sing"></block>
     </category>
-    <category name="Operadores" colour="290">
-      <block type="operator_hasobstruction"></block>
+    <category name="Sensores" colour="290">
+      <block type="sensor_hasobstruction"></block>
+      <block type="sensor_touchhead"></block>
     </category>
+  </xml>
+
+  <xml id="startBlocks" style="display: none">
+    <block type="event_setup"></block>
+    <block type="event_loop"></block>
   </xml>
 
 </body>

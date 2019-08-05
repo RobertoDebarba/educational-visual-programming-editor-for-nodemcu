@@ -85,6 +85,9 @@ Index.loadBlocks = function(defaultXml) {
     // initialization is not affected from a failed load.
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   }
+
+  let elementById = document.getElementById('startBlocks');
+  Blockly.Xml.domToWorkspace(elementById, Index.workspace);
 };
 
 /**

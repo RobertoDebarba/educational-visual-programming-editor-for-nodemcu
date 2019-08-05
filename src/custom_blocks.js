@@ -79,39 +79,6 @@ Blockly.Blocks['motion_sing'] = {
   }
 };
 
-Blockly.Blocks['operator_hasobstruction'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Tem obstáculo");
-    this.setOutput(true, "Boolean");
-    this.setColour(290);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['event_start'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Começar");
-    this.setNextStatement(true, null);
-    this.setColour(50);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['event_touchhead'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Tocou na cabeça");
-    this.setNextStatement(true, null);
-    this.setColour(50);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
 Blockly.Blocks['control_waitseconds'] = {
   init: function() {
     this.appendDummyInput()
@@ -202,4 +169,52 @@ Blockly.Blocks['control_ifelse'] = {
  this.setTooltip("");
  this.setHelpUrl("");
   }
+};
+
+Blockly.Blocks['sensor_hasobstruction'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Tem obstáculo");
+        this.setOutput(true, "Boolean");
+        this.setColour(290);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['sensor_touchhead'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Tocou na cabeça");
+        this.setOutput(true, "Boolean");
+        this.setColour(290);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['event_setup'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Configurar");
+        this.setNextStatement(true, null);
+        this.setColour(50);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.setDeletable(false);
+        this.moveBy(0, 0);
+    }
+};
+
+Blockly.Blocks['event_loop'] = {
+    init: function() {
+        this.appendStatementInput("loop")
+            .setCheck(null)
+            .appendField("Executar para sempre");
+        this.setColour(50);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.setDeletable(false);
+        this.moveBy(200, 0);
+    }
 };
