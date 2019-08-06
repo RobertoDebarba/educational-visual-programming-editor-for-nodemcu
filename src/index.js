@@ -24,6 +24,12 @@ Index.LANGUAGE_RTL = ['ar', 'fa', 'he', 'lki'];
 Index.workspace = null;
 
 /**
+ * Gerador de código da aplicação
+ * @type {CustomCodeGenerator} Gerador padrão do Blockly
+ */
+Index.generator = new CustomCodeGenerator(Blockly.JavaScript);
+
+/**
  * Extracts a parameter from the URL.
  * If the parameter is absent default_value is returned.
  * @param {string} name The name of the parameter.
@@ -233,7 +239,7 @@ Index.attemptCodeGeneration = function(generator, prettyPrintType) {
   var content = document.getElementById('content_' + Index.selected);
   content.textContent = '';
   if (Index.checkAllGeneratorFunctionsDefined(generator)) {
-    var code = generator.workspaceToCode(Index.workspace);
+    var code = new CustomCodeGenerator(generator).generateCode(Index.workspace);
 
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {

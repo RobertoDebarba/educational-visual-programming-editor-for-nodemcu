@@ -194,15 +194,14 @@ Blockly.Blocks['sensor_touchhead'] = {
 };
 
 Blockly.Blocks['event_setup'] = {
-    init: function() {
-        this.appendDummyInput()
+    init: function () {
+        this.appendStatementInput("loop")
+            .setCheck(null)
             .appendField("Configurar");
-        this.setNextStatement(true, null);
         this.setColour(50);
         this.setTooltip("");
         this.setHelpUrl("");
         this.setDeletable(false);
-        this.moveBy(0, 0);
     }
 };
 
