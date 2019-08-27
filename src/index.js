@@ -244,6 +244,7 @@ Index.attemptCodeGeneration = function(generator, prettyPrintType) {
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
       code = content.textContent;
+      code = code.split('\n').map(line => line.trim()).join('\n');
       code = PR.prettyPrintOne(code, prettyPrintType);
       content.innerHTML = code;
     }
