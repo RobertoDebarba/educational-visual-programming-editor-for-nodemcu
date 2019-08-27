@@ -1,22 +1,8 @@
 {
-  "name": "electron-quick-start",
+  "name": "educational-visual-programming-editor-for-nodemcu",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "^6.0.1"
-  }
+  "description": "Educational visual programming editor for NodeMCU",
+  "main": "index.js",
+  "repository": "https://github.com/RobertoDebarba/educational-visual-programming-language-for-esp8266",
+  "author": "roberto.debarba@gmail.com"
 }
