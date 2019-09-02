@@ -8,7 +8,7 @@ Ready!
 
 ## Backend
 
-Requires
+Requirements
 * OpenJDK 11
 * Maven 3.5.3+
 
@@ -18,14 +18,24 @@ Run
 Getting Started
 https://quarkus.io/guides/getting-started-guide
 
-## OTA
+## Firmware
 
-Requires
-* Create Firewall Outbound Rule for any protocol on port 8266
+### Serial
+
+Requirements
 * PlatformIO CLI
-* Set upload_port for serial and ota on platformio.ini
-* Build and upload firmware via serial port: platformio run -e serial -t upload
+* Set upload_port on platformio.ini
 
+Run
+* platformio run -t upload
 
-Build and upload via OTA:
-platformio run -e ota -t upload
+### OTA
+
+Requirements
+* PlatformIO CLI
+* Set SSL fingerprint of web storage (AWS S3) on main.cpp
+* Prepare device via serial upload
+
+Run
+* Build firmware bin: platformio run
+* Upload the bin output (./.pioenvs/serial/firmware.bin) to web storage (AWS S3)

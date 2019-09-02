@@ -1,80 +1,99 @@
-#include <Arduino.h>
+#include <ESP8266HTTPClient.h>
+#include <ESP8266httpUpdate.h>
+
 #include <ESP8266WiFi.h>
-#include <ESP8266mDNS.h>
-#include <WiFiUdp.h>
-#include <ArduinoOTA.h>
+#include <ESP8266WiFiMulti.h>
 
-const char* ssid = "WIFI_UNIFIQUE_566";
-const char* password = "56631250";
+ESP8266WiFiMulti WiFiMulti;
 
-void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-  
-  Serial.begin(115200);
-  Serial.println("Booting");
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println("Connection Failed! Rebooting...");
-    delay(5000);
-    ESP.restart();
+const int FW_VERSION = 0; //Unix Timestamp
+
+const char *fwUrlBase = "https://vpl-esp8266.s3.amazonaws.com/";
+const char *fingerprint = "17:E0:A9:3E:58:AF:0A:06:8D:6C:2D:B6:C1:80:B3:E7:E3:52:D4:8E";
+
+void checkForUpdates()
+{
+  String fwURL = String(fwUrlBase);
+  fwURL.concat("firmware");
+  String fwVersionURL = String(fwUrlBase);
+  fwVersionURL.concat("version.txt");
+
+  Serial.println("Checking for firmware updates...");
+  Serial.print("Firmware version URL: ");
+  Serial.println(fwVersionURL);
+
+  HTTPClient httpClient;
+  httpClient.begin(fwVersionURL, fingerprint);
+  int httpCode = httpClient.GET();
+  if (httpCode == 200)
+  {
+    String newFWVersion = httpClient.getString();
+
+    Serial.print("Current firmware version: ");
+    Serial.println(FW_VERSION);
+    Serial.print("Available firmware version: ");
+    Serial.println(newFWVersion);
+
+    int newVersion = newFWVersion.toInt();
+
+    if (newVersion > FW_VERSION)
+    {
+      Serial.println("Preparing to update...");
+
+      String fwImageURL = fwURL;
+      fwImageURL.concat(".bin");
+      t_httpUpdate_return ret = ESPhttpUpdate.update(fwImageURL, "", fingerprint);
+
+      switch (ret)
+      {
+      case HTTP_UPDATE_FAILED:
+        Serial.printf("HTTP_UPDATE_FAILD Error (%d): %s", ESPhttpUpdate.getLastError(), ESPhttpUpdate.getLastErrorString().c_str());
+        break;
+
+      case HTTP_UPDATE_NO_UPDATES:
+        Serial.println("HTTP_UPDATE_NO_UPDATES");
+        break;
+
+      case HTTP_UPDATE_OK:
+        Serial.println("HTTP_UPDATE_OK");
+        break;
+      }
+    }
+  }
+  else
+  {
+    Serial.print("Firmware version check failed, got HTTP response code ");
+    Serial.println(httpCode);
   }
 
-  // Port defaults to 8266
-  ArduinoOTA.setPort(8266);
-
-  // Hostname defaults to esp8266-[ChipID]
-  // ArduinoOTA.setHostname("educational-visual-programming-language-for-esp8266");
-
-  // No authentication by default
-  // ArduinoOTA.setPassword("admin");
-
-  // Password can be set with it's md5 value as well
-  // MD5(admin) = 21232f297a57a5a743894a0e4a801fc3
-  // ArduinoOTA.setPasswordHash("21232f297a57a5a743894a0e4a801fc3");
-
-  ArduinoOTA.onStart([]() {
-    String type;
-    if (ArduinoOTA.getCommand() == U_FLASH) {
-      type = "sketch";
-    } else { // U_SPIFFS
-      type = "filesystem";
-    }
-
-    // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
-    Serial.println("Start updating " + type);
-  });
-  ArduinoOTA.onEnd([]() {
-    Serial.println("\nEnd");
-  });
-  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
-  });
-  ArduinoOTA.onError([](ota_error_t error) {
-    Serial.printf("Error[%u]: ", error);
-    if (error == OTA_AUTH_ERROR) {
-      Serial.println("Auth Failed");
-    } else if (error == OTA_BEGIN_ERROR) {
-      Serial.println("Begin Failed");
-    } else if (error == OTA_CONNECT_ERROR) {
-      Serial.println("Connect Failed");
-    } else if (error == OTA_RECEIVE_ERROR) {
-      Serial.println("Receive Failed");
-    } else if (error == OTA_END_ERROR) {
-      Serial.println("End Failed");
-    }
-  });
-  ArduinoOTA.begin();
-  Serial.println("Ready");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  httpClient.end();
 }
 
-void loop() {
-  ArduinoOTA.handle();
+void setup()
+{
+  Serial.begin(115200);
 
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
+  Serial.println();
+  Serial.println();
+  Serial.println();
+
+  for (uint8_t t = 4; t > 0; t--)
+  {
+    Serial.println("Seting up...");
+    delay(1000);
+  }
+
+  WiFi.mode(WIFI_STA);
+  WiFiMulti.addAP("Redmi", "qwert12345");
+}
+
+void loop()
+{
+  // wait for WiFi connection
+  if ((WiFiMulti.run() == WL_CONNECTED))
+  {
+    checkForUpdates();
+  }
+
+  delay(5000);
 }
