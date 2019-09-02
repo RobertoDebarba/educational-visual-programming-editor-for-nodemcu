@@ -30,6 +30,11 @@ Index.workspace = null;
 Index.generator = new CustomCodeGenerator(Blockly.JavaScript);
 
 /**
+ * Serviço de conexão com o backend para manipulação for firmware
+ */
+Index.firmwareService = new FirmwareService();
+
+/**
  * Extracts a parameter from the URL.
  * If the parameter is absent default_value is returned.
  * @param {string} name The name of the parameter.
@@ -244,7 +249,7 @@ Index.attemptCodeGeneration = function(generator, prettyPrintType) {
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
       code = content.textContent;
-      code = code.split('\n').map(line => line.trim()).join('\n');
+      code = code.replace(/</g, '&lt').replace(/>/g, '&gt');
       code = PR.prettyPrintOne(code, prettyPrintType);
       content.innerHTML = code;
     }
@@ -438,13 +443,21 @@ Index.runJS = function() {
       throw MSG['timeout'];
     }
   };
-  var code = Blockly.JavaScript.workspaceToCode(Index.workspace);
+  var code = new CustomCodeGenerator(Blockly.JavaScript).generateCode(Index.workspace);
   Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-  try {
-    eval(code);
-  } catch (e) {
-    alert(MSG['badCode'].replace('%1', e));
-  }
+  // try {
+  //   eval(code);
+  // } catch (e) {
+  //   alert(MSG['badCode'].replace('%1', e));
+  // }
+  Index.firmwareService.compile(code)
+      .then(function (response) {
+        console.log(response);
+        console.log('Compile OK');
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
 };
 
 /**

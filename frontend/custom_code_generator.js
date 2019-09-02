@@ -7,10 +7,10 @@ class CustomCodeGenerator {
     }
 
     generateCode(workspace) {
-        return `
-            #include &ltServo.h&gt
-            #include &ltOscillator.h&gt
-            #include &ltOtto.h&gt
+        let code = `
+            #include <Servo.h>
+            #include <Oscillator.h>
+            #include <Otto.h>
             Otto Otto;  //This is Otto!
             //----------------------------------------------------------------------
             //-- Make sure the servos are in the right pin
@@ -28,5 +28,11 @@ class CustomCodeGenerator {
               #define PIN_RIGHTFOOT 5 //servo[5]
               
               ${this.generator.workspaceToCode(workspace)}\n`;
+
+        return this.indent(code);
+    }
+
+    indent(code) {
+        return code.split('\n').map(line => line.trim()).join('\n');
     }
 }
