@@ -20,6 +20,11 @@ https://quarkus.io/guides/getting-started-guide
 
 ## Firmware
 
+### Libraries
+
+The libraries in lib folder were copy from Otto DIY project, but it was not versioning =(
+I created a patch with the changes I made to run on Esp8266: ./firmware/lib/ottodiylibs.patch
+
 ### Serial
 
 Requirements

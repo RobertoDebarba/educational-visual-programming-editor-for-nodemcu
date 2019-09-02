@@ -26,7 +26,7 @@
 #define PIN_Buzzer  13
 #define PIN_Trigger 8
 #define PIN_Echo    9
-#define PIN_NoiseSensor A6
+#define PIN_NoiseSensor 6
 
 
 class Otto

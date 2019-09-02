@@ -52,7 +52,7 @@ class Oscillator
     int _trim;        //-- Calibration offset
     double _phase;    //-- Current phase
     double _inc;      //-- Increment of phase
-    double _N;        //-- Number of samples
+    double _n;        //-- Number of samples
     unsigned int _TS; //-- sampling period (ms)
     
     long _previousMillis; 
