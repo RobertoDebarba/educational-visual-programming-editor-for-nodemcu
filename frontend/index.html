@@ -5,18 +5,19 @@
   <meta name="google" value="notranslate">
   <title>Blockly Demo:</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lib/code-prettify/desert.css">
   <script src="/storage.js"></script>
   <script src="env.js"></script>
   <script src="lib/blockly/blockly_compressed.js"></script>
   <script src="lib/blockly/blocks_compressed.js"></script>
   <script src="lib/blockly/javascript_compressed.js"></script>
-  <script src="custom_code_generator.js"></script>
-  <script src="custom_blocks.js"></script>
-  <script src="custom_config.js"></script>
-  <script src="custom_blocks_code_generator.js"></script>
-  <script src="firmware_service.js"></script>
-  <script src="lib/run_prettify.js"></script>
+  <script src="lib/code-prettify/run_prettify.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
+
+  <script src="custom_blocks/code_generator/otto_code_generator.js"></script>
+  <script src="custom_config.js"></script>
+  <script src="firmware_service.js"></script>
+
   <script src="index.js"></script>
 </head>
 <body>
@@ -59,7 +60,7 @@
     </tr>
   </table>
   <div id="content_blocks" class="content"></div>
-  <pre id="content_javascript" class="content"></pre>
+  <pre id="content_javascript" class="content prettyprint"></pre>
   <textarea id="content_xml" class="content" wrap="off"></textarea>
 
   <xml id="toolbox" style="display: none">
@@ -89,5 +90,22 @@
     <block type="event_loop"></block>
   </xml>
 
+  <script src="custom_blocks/code_generator/control_dowhile.js"></script>
+  <script src="custom_blocks/code_generator/control_for.js"></script>
+  <script src="custom_blocks/code_generator/control_if.js"></script>
+  <script src="custom_blocks/code_generator/control_ifelse.js"></script>
+  <script src="custom_blocks/code_generator/control_waitseconds.js"></script>
+  <script src="custom_blocks/code_generator/control_whiletrue.js"></script>
+  <script src="custom_blocks/code_generator/event_loop.js"></script>
+  <script src="custom_blocks/code_generator/event_setup.js"></script>
+  <script src="custom_blocks/code_generator/motion_dance.js"></script>
+  <script src="custom_blocks/code_generator/motion_feeling.js"></script>
+  <script src="custom_blocks/code_generator/motion_moveback.js"></script>
+  <script src="custom_blocks/code_generator/motion_moveforward.js"></script>
+  <script src="custom_blocks/code_generator/motion_sing.js"></script>
+  <script src="custom_blocks/code_generator/motion_turndirection.js"></script>
+  <script src="custom_blocks/code_generator/sensor_hasobstruction.js"></script>
+  <script src="custom_blocks/code_generator/sensor_touchhead.js"></script>
+  <script src="custom_blocks/custom_blocks.js"></script>
 </body>
 </html>
