@@ -2,11 +2,11 @@
 
 class OttoCodeGenerator {
 
-    constructor(generator) {
-        this.generator = generator;
-    }
+    static generateCode(generator, workspace) {
+        let containsMotionDanceBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_dance');
+        let motionDanceGlobalInitCode = containsMotionDanceBlock ? MotionDanceBlock.getGlobalInitCode() : '';
+        let motionDanceGlobalFunctionsCode = containsMotionDanceBlock ? MotionDanceBlock.getGlobalFunctionsCode() : '';
 
-    generateCode(workspace) {
         let code = `
             #include <Servo.h>
             #include <Oscillator.h>
@@ -58,13 +58,22 @@ class OttoCodeGenerator {
              * OttoHappy OttoSuperHappy  OttoSad   OttoSleeping  OttoFart  OttoConfused OttoLove  OttoAngry   
              * OttoFretful OttoMagic  OttoWave  OttoVictory  OttoFail
              */
+             
+            ${motionDanceGlobalInitCode}
               
-            ${this.generator.workspaceToCode(workspace)}\n`;
+            ${generator.workspaceToCode(workspace)}
 
-        return this.indent(code);
+            ${motionDanceGlobalFunctionsCode}
+        `;
+
+        return OttoCodeGenerator.indent(code);
     }
 
-    indent(code) {
+    static isBLockOnWorkspace(blockType) {
+        return Blockly.getMainWorkspace().getAllBlocks().some(b => b.type === blockType);
+    }
+
+    static indent(code) {
         return code.split('\n').map(line => line.trim()).join('\n');
     }
 }

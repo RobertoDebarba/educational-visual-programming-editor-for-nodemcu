@@ -24,12 +24,6 @@ Index.LANGUAGE_RTL = ['ar', 'fa', 'he', 'lki'];
 Index.workspace = null;
 
 /**
- * Gerador de código da aplicação
- * @type {CustomCodeGenerator} Gerador padrão do Blockly
- */
-Index.generator = new OttoCodeGenerator(Blockly.JavaScript);
-
-/**
  * Serviço de conexão com o backend para manipulação for firmware
  */
 Index.firmwareService = new FirmwareService();
@@ -244,7 +238,7 @@ Index.attemptCodeGeneration = function(generator, prettyPrintType) {
   var content = document.getElementById('content_' + Index.selected);
   content.textContent = '';
   if (Index.checkAllGeneratorFunctionsDefined(generator)) {
-    var code = new OttoCodeGenerator(generator).generateCode(Index.workspace);
+    var code = OttoCodeGenerator.generateCode(generator, Index.workspace);
 
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
@@ -443,7 +437,7 @@ Index.runJS = function() {
       throw MSG['timeout'];
     }
   };
-  var code = new OttoCodeGenerator(Blockly.JavaScript).generateCode(Index.workspace);
+  var code = OttoCodeGenerator.generateCode(Blockly.JavaScript, Index.workspace);
   Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
   // try {
   //   eval(code);

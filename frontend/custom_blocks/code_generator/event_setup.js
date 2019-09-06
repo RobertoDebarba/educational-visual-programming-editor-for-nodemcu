@@ -1,5 +1,9 @@
 Blockly.JavaScript['event_setup'] = function (block) {
     let statements_loop = Blockly.JavaScript.statementToCode(block, 'loop');
+    let containsMotionDanceBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_dance');
+
+    let motionDanceSetupCode = containsMotionDanceBlock ? MotionDanceBlock.getSetupCode() : '';
+
     return `
     ///////////////////////////////////////////////////////////////////
     //-- Setup ------------------------------------------------------//
@@ -9,7 +13,8 @@ Blockly.JavaScript['event_setup'] = function (block) {
         Otto.sing(S_connection); //Otto wake up!
         Otto.home(); //Otto at rest position
         delay(50);
-        //End of initialization
+        
+        ${motionDanceSetupCode}
         
         ${statements_loop}
     }\n`;
