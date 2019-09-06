@@ -7,6 +7,10 @@ class OttoCodeGenerator {
         let motionDanceGlobalInitCode = containsMotionDanceBlock ? MotionDanceBlock.getGlobalInitCode() : '';
         let motionDanceGlobalFunctionsCode = containsMotionDanceBlock ? MotionDanceBlock.getGlobalFunctionsCode() : '';
 
+        let containsMotionSingBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_sing');
+        let motionSingGlobalInitCode = containsMotionSingBlock ? MotionSingBlock.getGlobalInitCode() : '';
+        let motionSingGlobalFunctionsCode = containsMotionSingBlock ? MotionSingBlock.getGlobalFunctionsCode() : '';
+
         let code = `
             #include <Servo.h>
             #include <Oscillator.h>
@@ -60,10 +64,12 @@ class OttoCodeGenerator {
              */
              
             ${motionDanceGlobalInitCode}
+            ${motionSingGlobalInitCode}
               
             ${generator.workspaceToCode(workspace)}
 
             ${motionDanceGlobalFunctionsCode}
+            ${motionSingGlobalFunctionsCode}
         `;
 
         return OttoCodeGenerator.indent(code);
@@ -71,6 +77,10 @@ class OttoCodeGenerator {
 
     static isBLockOnWorkspace(blockType) {
         return Blockly.getMainWorkspace().getAllBlocks().some(b => b.type === blockType);
+    }
+
+    static getBLockIfOnWorkspace(blockType) {
+        return Blockly.getMainWorkspace().getAllBlocks().find(b => b.type === blockType);
     }
 
     static indent(code) {

@@ -257,10 +257,10 @@
               <block type="field_dropdown" id="9%~Ra9RP_,Uh;gl]!E=a">
                 <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
                 <field name="FIELDNAME">song</field>
-                <field name="USER0">Evidencias</field>
-                <field name="CPU0">EVIDENCIAS</field>
-                <field name="USER1">Boate azul</field>
-                <field name="CPU1">BOATE_AZUL</field>
+                <field name="USER0">Super Mario</field>
+                <field name="CPU0">SUPER_MARIO</field>
+                <field name="USER1">Feliz aniversário</field>
+                <field name="CPU1">HAPPY_BIRTHDAY</field>
               </block>
             </next>
           </block>
