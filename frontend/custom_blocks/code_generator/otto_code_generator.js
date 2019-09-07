@@ -72,18 +72,18 @@ class OttoCodeGenerator {
             ${motionSingGlobalFunctionsCode}
         `;
 
-        return OttoCodeGenerator.indent(code);
+        return OttoCodeGenerator._indent(code);
     }
 
     static isBLockOnWorkspace(blockType) {
         return Blockly.getMainWorkspace().getAllBlocks().some(b => b.type === blockType);
     }
 
-    static getBLockIfOnWorkspace(blockType) {
-        return Blockly.getMainWorkspace().getAllBlocks().find(b => b.type === blockType);
+    static getAllBLocksOnWorkspace(blockType) {
+        return Blockly.getMainWorkspace().getAllBlocks().filter(b => b.type === blockType);
     }
 
-    static indent(code) {
+    static _indent(code) {
         return code.split('\n').map(line => line.trim()).join('\n');
     }
 }
