@@ -7,6 +7,9 @@ Blockly.JavaScript['event_setup'] = function (block) {
     let containsMotionSingBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_sing');
     let motionSingSetupCode = containsMotionSingBlock ? MotionSingBlock.getSetupCode() : '';
 
+    let containsMotionFeelingBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_feeling');
+    let motionFeelingSetupCode = containsMotionFeelingBlock ? MotionFeelingBlock.getSetupCode() : '';
+
     return `
     ///////////////////////////////////////////////////////////////////
     //-- Setup ------------------------------------------------------//
@@ -19,6 +22,7 @@ Blockly.JavaScript['event_setup'] = function (block) {
         
         ${motionDanceSetupCode}
         ${motionSingSetupCode}
+        ${motionFeelingSetupCode}
         
         ${statements_loop}
     }\n`;

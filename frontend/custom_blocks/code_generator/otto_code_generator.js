@@ -11,6 +11,10 @@ class OttoCodeGenerator {
         let motionSingGlobalInitCode = containsMotionSingBlock ? MotionSingBlock.getGlobalInitCode() : '';
         let motionSingGlobalFunctionsCode = containsMotionSingBlock ? MotionSingBlock.getGlobalFunctionsCode() : '';
 
+        let containsMotionFeelingBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_feeling');
+        let motionFeelingGlobalInitCode = containsMotionFeelingBlock ? MotionFeelingBlock.getGlobalInitCode() : '';
+        let motionFeelingGlobalFunctionsCode = containsMotionFeelingBlock ? MotionFeelingBlock.getGlobalFunctionsCode() : '';
+
         let code = `
             #include <Servo.h>
             #include <Oscillator.h>
@@ -65,11 +69,13 @@ class OttoCodeGenerator {
              
             ${motionDanceGlobalInitCode}
             ${motionSingGlobalInitCode}
+            ${motionFeelingGlobalInitCode}
               
             ${generator.workspaceToCode(workspace)}
 
             ${motionDanceGlobalFunctionsCode}
             ${motionSingGlobalFunctionsCode}
+            ${motionFeelingGlobalFunctionsCode}
         `;
 
         return OttoCodeGenerator._indent(code);
