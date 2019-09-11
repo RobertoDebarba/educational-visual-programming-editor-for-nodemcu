@@ -1,6 +1,4 @@
-Blockly.JavaScript['sensor_hasobstruction'] = function(block) {
-    // TODO: Assemble JavaScript into code variable.
-    let code = '...';
-    // TODO: Change ORDER_NONE to the correct strength.
+Blockly.JavaScript['sensor_hasobstruction'] = function (block) {
+    let code = 'Otto.getDistance() < 15';
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
