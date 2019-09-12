@@ -1,6 +1,26 @@
-Blockly.JavaScript['sensor_touchhead'] = function(block) {
-    // TODO: Assemble JavaScript into code variable.
-    let code = '...';
-    // TODO: Change ORDER_NONE to the correct strength.
+Blockly.JavaScript['sensor_touchhead'] = function (block) {
+    let code = 'isHeadTouched()';
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+class SensorTouchHeadBlock {
+
+    static getSetupCode() {
+        return `pinMode(PIN_TOUCH_SENSOR, INPUT);\n`;
+    }
+
+    static getGlobalInitCode() {
+        return `
+        #define PIN_TOUCH_SENSOR 0
+        
+        boolean isHeadTouched();\n`;
+    }
+
+    static getGlobalFunctionsCode() {
+        return `
+        boolean isHeadTouched() {
+            return digitalRead(PIN_TOUCH_SENSOR) == HIGH;
+        }\n`;
+    }
+
+}

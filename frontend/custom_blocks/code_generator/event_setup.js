@@ -10,6 +10,9 @@ Blockly.JavaScript['event_setup'] = function (block) {
     let containsMotionFeelingBlock = OttoCodeGenerator.isBLockOnWorkspace('motion_feeling');
     let motionFeelingSetupCode = containsMotionFeelingBlock ? MotionFeelingBlock.getSetupCode() : '';
 
+    let containsSensorTouchHeadBlock = OttoCodeGenerator.isBLockOnWorkspace('sensor_touchhead');
+    let SensorTouchHeadSetupCode = containsSensorTouchHeadBlock ? SensorTouchHeadBlock.getSetupCode() : '';
+
     return `
     ///////////////////////////////////////////////////////////////////
     //-- Setup ------------------------------------------------------//
@@ -23,6 +26,7 @@ Blockly.JavaScript['event_setup'] = function (block) {
         ${motionDanceSetupCode}
         ${motionSingSetupCode}
         ${motionFeelingSetupCode}
+        ${SensorTouchHeadSetupCode}
         
         ${statements_loop}
     }\n`;
