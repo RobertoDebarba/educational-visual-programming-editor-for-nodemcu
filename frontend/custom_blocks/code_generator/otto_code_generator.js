@@ -84,7 +84,7 @@ class OttoCodeGenerator {
             ${sensorTouchHeadGlobalFunctionsCode}
         `;
 
-        return OttoCodeGenerator._indent(code);
+        return OttoCodeGenerator._format(code);
     }
 
     static isBLockOnWorkspace(blockType) {
@@ -95,7 +95,40 @@ class OttoCodeGenerator {
         return Blockly.getMainWorkspace().getAllBlocks().filter(b => b.type === blockType);
     }
 
+    static _format(code) {
+        let indentedCode = OttoCodeGenerator._indent(code);
+        return OttoCodeGenerator._removeMultipleBlackLines(indentedCode);
+    }
+
     static _indent(code) {
-        return code.split('\n').map(line => line.trim()).join('\n');
+        let deepCount = 0;
+
+        return code.split('\n').map(line => {
+            let openBracketsCount = line.split('{').length - 1;
+            let closeBracketsCount = line.split('}').length - 1;
+
+            // Verifica a diferença para não aplcar em casos onde as chaves são abertas e fechadas na mesma linha
+            let bracketsDiff = openBracketsCount;
+            bracketsDiff -= closeBracketsCount;
+
+            if (bracketsDiff < 0) {
+                deepCount -= closeBracketsCount;
+            }
+
+            let lineIndented = line.trim();
+            for (let i = 0; i < deepCount; i++) {
+                lineIndented = '\t' + lineIndented;
+            }
+
+            if (bracketsDiff > 0) {
+                deepCount += openBracketsCount;
+            }
+
+            return lineIndented;
+        }).join('\n');
+    }
+
+    static _removeMultipleBlackLines(code) {
+        return code.replace(/^(?:[\t ]*(?:\r?\n|\r)){2,}/gm, '\n');
     }
 }
