@@ -19,13 +19,18 @@ public class FirmwareService {
     private PlatformIOService platformIOService;
 
     public boolean compile(String sourceCode) {
-        String processDirectory = this.createProcessDirectory();
+        final String processDirectory = this.createProcessDirectory();
 
-        return this.platformIOService.compile(sourceCode, processDirectory);
+        try {
+            //TODO juntar código gerado com o OTA
 
-        //TODO upload firmware
+            final boolean compileResult = this.platformIOService.compile(sourceCode, processDirectory);
 
-        //TODO limpar pasta do projeto
+            return compileResult;
+            //TODO upload firmware
+        } finally {
+            this.deleteProcessDirectory(processDirectory);
+        }
     }
 
     private String createProcessDirectory() {
@@ -38,6 +43,14 @@ public class FirmwareService {
             return firmwareTargetPath;
         } catch (IOException e) {
             throw new RuntimeException("Failed to create project directory", e);
+        }
+    }
+
+    private void deleteProcessDirectory(String firmwarePath) {
+        try {
+            FileUtils.deleteDirectory(new File(firmwarePath));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete project directory", e);
         }
     }
 
