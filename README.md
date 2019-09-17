@@ -11,6 +11,8 @@ Ready!
 Requirements
 * OpenJDK 11
 * Maven 3.5.3+
+* PlatformIO CLI
+* Copy firmware folder to ~/educational-visual-programming-language-for-esp8266/source
 
 Run
 * ./mvnw compile quarkus:dev
