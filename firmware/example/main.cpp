@@ -16,8 +16,6 @@ const char *wifiPassword = "qwert12345";
 
 void checkForUpdates();
 
-//@@REPLACE_GLOBAL_INIT@@
-
 void setup()
 {
   Serial.begin(115200);
@@ -34,8 +32,6 @@ void setup()
 
   WiFi.mode(WIFI_STA);
   WiFiMulti.addAP(wifiSSID, wifiPassword);
-
-  //@@REPLACE_SETUP@@
 }
 
 void loop()
@@ -47,8 +43,6 @@ void loop()
   }
 
   delay(5000);
-
-  //@@REPLACE_LOOP@@
 }
 
 void checkForUpdates()
@@ -108,5 +102,3 @@ void checkForUpdates()
 
   httpClient.end();
 }
-
-//@@REPLACE_GLOBAL_FUNCTIONS@@

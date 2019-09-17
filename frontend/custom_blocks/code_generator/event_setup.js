@@ -23,6 +23,9 @@ Blockly.JavaScript['event_setup'] = function (block) {
         Otto.home(); //Otto at rest position
         delay(50);
         
+        //DO NOT REMOVE!!!
+        //@@REPLACE_SETUP@@
+        
         ${motionDanceSetupCode}
         ${motionSingSetupCode}
         ${motionFeelingSetupCode}

@@ -18,13 +18,15 @@ public class FirmwareService {
     @Inject
     private PlatformIOService platformIOService;
 
-    public boolean compile(String sourceCode) {
+    @Inject
+    private FirmwareOTAService firmwareOTAService;
+
+    public boolean compile(final String sourceCode) {
         final String processDirectory = this.createProcessDirectory();
 
         try {
-            //TODO juntar código gerado com o OTA
-
-            final boolean compileResult = this.platformIOService.compile(sourceCode, processDirectory);
+            final String sourceCodeWithOTA = firmwareOTAService.injectOTACode(sourceCode);
+            final boolean compileResult = this.platformIOService.compile(sourceCodeWithOTA, processDirectory);
 
             return compileResult;
             //TODO upload firmware

@@ -5,6 +5,9 @@ Blockly.JavaScript['event_loop'] = function (block) {
     //-- Principal Loop ---------------------------------------------//
     ///////////////////////////////////////////////////////////////////
     void loop() {
+        //DO NOT REMOVE!!!
+        //@@REPLACE_LOOP@@
+    
         ${statements_loop}
     }\n`;
 };

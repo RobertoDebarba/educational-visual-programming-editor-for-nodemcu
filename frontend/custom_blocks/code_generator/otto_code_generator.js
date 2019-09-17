@@ -71,12 +71,18 @@ class OttoCodeGenerator {
              * OttoFretful OttoMagic  OttoWave  OttoVictory  OttoFail
              */
              
+            //DO NOT REMOVE!!!
+            //@@REPLACE_GLOBAL_INIT@@
+             
             ${motionDanceGlobalInitCode}
             ${motionSingGlobalInitCode}
             ${motionFeelingGlobalInitCode}
             ${sensorTouchHeadInitCode}
               
             ${generator.workspaceToCode(workspace)}
+            
+            //DO NOT REMOVE!!!
+            //@@REPLACE_GLOBAL_FUNCTIONS@@
 
             ${motionDanceGlobalFunctionsCode}
             ${motionSingGlobalFunctionsCode}
