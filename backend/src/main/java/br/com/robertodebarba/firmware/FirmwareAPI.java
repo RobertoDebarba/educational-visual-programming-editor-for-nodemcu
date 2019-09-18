@@ -18,7 +18,7 @@ public class FirmwareAPI {
     private Logger logger = LoggerFactory.getLogger(FirmwareAPI.class);
 
     @Inject
-    private FirmwareService firmwareService;
+    FirmwareService firmwareService;
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)

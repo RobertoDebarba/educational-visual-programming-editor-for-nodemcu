@@ -1,16 +1,16 @@
-package br.com.robertodebarba.quickstart;
+package br.com.robertodebarba;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("hello")
-public class GreetingResource {
+@Path("/")
+public class HelloWorldAPI {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "hello";
+        return "Hello world";
     }
 }

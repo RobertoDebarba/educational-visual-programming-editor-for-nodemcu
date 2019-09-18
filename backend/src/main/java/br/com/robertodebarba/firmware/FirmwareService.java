@@ -1,7 +1,11 @@
 package br.com.robertodebarba.firmware;
 
+import br.com.robertodebarba.aws.AwsS3Client;
 import br.com.robertodebarba.platformio.PlatformIOService;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,12 +18,19 @@ public class FirmwareService {
 
     private static final String PROJECT_HOME_PATH = System.getProperty("user.home") + File.separator + "educational-visual-programming-language-for-esp8266";
     private static final String FIRMWARE_SOURCE_PATH = "source";
+    private static final String FIRMWARE_OBJECT_NAME = "firmware.bin";
+
+    @ConfigProperty(name = "aws.s3.bucketname")
+    String firmwareBucketName;
 
     @Inject
-    private PlatformIOService platformIOService;
+    PlatformIOService platformIOService;
 
     @Inject
-    private FirmwareOTAService firmwareOTAService;
+    FirmwareOTAService firmwareOTAService;
+
+    @Inject
+    AwsS3Client awsS3Client;
 
     public boolean compile(final String sourceCode) {
         final String processDirectory = this.createProcessDirectory();
@@ -28,10 +39,25 @@ public class FirmwareService {
             final String sourceCodeWithOTA = firmwareOTAService.injectOTACode(sourceCode);
             final boolean compileResult = this.platformIOService.compile(sourceCodeWithOTA, processDirectory);
 
+            this.uploadFirmwareToS3(processDirectory);
+            //TODO notify firmware update
+
             return compileResult;
-            //TODO upload firmware
         } finally {
             this.deleteProcessDirectory(processDirectory);
+        }
+    }
+
+    private void uploadFirmwareToS3(String processDirectory) {
+        try {
+            final String firmwareBuildPath = processDirectory + File.separator + ".pioenvs" + File.separator + "serial" + File.separator + "firmware.bin";
+            final byte[] firmware = FileUtils.readFileToByteArray(new File(firmwareBuildPath));
+
+            awsS3Client.getClient().
+                    putObject(PutObjectRequest.builder().bucket(firmwareBucketName).key(FIRMWARE_OBJECT_NAME).build(),
+                            RequestBody.fromBytes(firmware));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload firmware build", e);
         }
     }
 

@@ -12,6 +12,8 @@ Requirements
 * OpenJDK 11
 * Maven 3.5.3+
 * PlatformIO CLI
+* Set enviroment variables: AWS_REGION=us-east-1; AWS_ACCESS_KEY_ID=?; AWS_SECRET_ACCESS_KEY=?
+* Set aws.s3.bucketname on application.properties
 * Copy firmware folder to ~/educational-visual-programming-language-for-esp8266/source
 
 Run
