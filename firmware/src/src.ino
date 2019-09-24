@@ -12,6 +12,7 @@ const int MQTT_PORT = 8883;
 const char MQTT_TOPIC_GET_ACCEPTED[] = "$aws/things/" THINGNAME "/shadow/get/accepted";
 const char MQTT_TOPIC_GET[] = "$aws/things/" THINGNAME "/shadow/get";
 const char MQTT_TOPIC_UPDATE[] = "$aws/things/" THINGNAME "/shadow/update";
+const char MQTT_TOPIC_UPDATE_DELTA[] = "$aws/things/" THINGNAME "/shadow/update/delta";
 
 #ifdef USE_SUMMER_TIME_DST
 uint8_t DST = 1;
@@ -32,14 +33,10 @@ time_t now;
 time_t nowish = 1510592825;
 
 void NTPConnect();
-void pubSubErr(int8_t MQTTErr);
 void connectToMqtt();
 void connectToWiFi(String init_str);
 void checkWiFiThenMQTT();
-void sendData(JsonObject root, char topic[]);
 void checkNewFirmwareAndUpdateIfNeeded();
-void sendShadowGet();
-void sendShadowUpdate();
 void messageReceived(char *topic, byte *payload, unsigned int length);
 
 void setup()
@@ -130,6 +127,8 @@ void connectToMqtt()
       Serial.println("connected!");
       if (!client.subscribe(MQTT_TOPIC_GET_ACCEPTED))
         pubSubErr(client.state());
+      if (!client.subscribe(MQTT_TOPIC_UPDATE_DELTA))
+        pubSubErr(client.state());
     }
     else
     {
@@ -211,6 +210,21 @@ void messageReceived(char *topic, byte *payload, unsigned int length)
     JsonObject state = obj["state"];
     JsonObject delta = state["delta"];
     int version = delta["firmware"].as<int>();
+
+    if (version != 0)
+    {
+      //TODO update firmware
+      Serial.println("Update firmware");
+      sendShadowUpdate(version);
+    }
+  }
+  else if (topicStr == MQTT_TOPIC_UPDATE_DELTA)
+  {
+    DynamicJsonDocument doc(2048);
+    deserializeJson(doc, payloadStr);
+    JsonObject obj = doc.as<JsonObject>();
+    JsonObject state = obj["state"];
+    int version = state["firmware"].as<int>();
 
     if (version != 0)
     {
