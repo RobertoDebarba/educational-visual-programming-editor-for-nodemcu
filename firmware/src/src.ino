@@ -3,15 +3,15 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include <time.h>
+#define emptyString String()
 
 //Enter values in secrets.h
 #include "secrets.h"
 
 const int MQTT_PORT = 8883;
-char *MQTT_TOPIC_GET = "$aws/things/" THINGNAME "/shadow/get";
-char *MQTT_TOPIC_GET_ACCEPTED = "$aws/things/" THINGNAME "/shadow/get/accepted";
-char *MQTT_TOPIC_UPDATE = "$aws/things/" THINGNAME "/shadow/update";
-char *MQTT_TOPIC_UPDATE_ACCEPTED = "$aws/things/" THINGNAME "/shadow/update/accepted";
+const char MQTT_TOPIC_GET_ACCEPTED[] = "$aws/things/" THINGNAME "/shadow/get/accepted";
+const char MQTT_TOPIC_GET[] = "$aws/things/" THINGNAME "/shadow/get";
+const char MQTT_TOPIC_UPDATE[] = "$aws/things/" THINGNAME "/shadow/update";
 
 #ifdef USE_SUMMER_TIME_DST
 uint8_t DST = 1;
@@ -25,26 +25,22 @@ BearSSL::X509List cert(cacert);
 BearSSL::X509List client_crt(client_cert);
 BearSSL::PrivateKey key(privkey);
 
-PubSubClient pubSubCLient(net);
+PubSubClient client(net);
 
 unsigned long lastMillis = 0;
 time_t now;
 time_t nowish = 1510592825;
 
-unsigned long previousMillis = 0;
-const long interval = 5000;
-
 void NTPConnect();
-void messageReceived(char *topic, byte *payload, unsigned int length);
 void pubSubErr(int8_t MQTTErr);
 void connectToMqtt();
 void connectToWiFi(String init_str);
 void checkWiFiThenMQTT();
-void sendData(JsonObject message, char *topic);
-
-void getVersion();
-void onVersion();
-void onNewVersion();
+void sendData(JsonObject root, char topic[]);
+void checkNewFirmwareAndUpdateIfNeeded();
+void sendShadowGet();
+void sendShadowUpdate();
+void messageReceived(char *topic, byte *payload, unsigned int length);
 
 void setup()
 {
@@ -62,24 +58,23 @@ void setup()
   net.setTrustAnchors(&cert);
   net.setClientRSACert(&client_crt, &key);
 
-  pubSubCLient.setServer(MQTT_HOST, MQTT_PORT);
-  pubSubCLient.setCallback(messageReceived);
+  client.setServer(MQTT_HOST, MQTT_PORT);
+  client.setCallback(messageReceived);
 
   connectToMqtt();
+
+  checkNewFirmwareAndUpdateIfNeeded();
 }
 
 void loop()
 {
-  now = time(nullptr);
-  if (!pubSubCLient.connected())
+  if (!client.connected())
   {
     checkWiFiThenMQTT();
   }
   else
   {
-    pubSubCLient.loop();
-    getVersion();
-    delay(3000);
+    client.loop();
   }
 }
 
@@ -128,20 +123,18 @@ void pubSubErr(int8_t MQTTErr)
 void connectToMqtt()
 {
   Serial.print("MQTT connecting ");
-  while (!pubSubCLient.connected())
+  while (!client.connected())
   {
-    if (pubSubCLient.connect(THINGNAME))
+    if (client.connect(THINGNAME))
     {
       Serial.println("connected!");
-      if (!pubSubCLient.subscribe(MQTT_TOPIC_GET_ACCEPTED))
-        pubSubErr(pubSubCLient.state());
-      // if (!pubSubCLient.subscribe(MQTT_TOPIC_UPDATE_ACCEPTED))
-      //   pubSubErr(pubSubCLient.state());
+      if (!client.subscribe(MQTT_TOPIC_GET_ACCEPTED))
+        pubSubErr(client.state());
     }
     else
     {
       Serial.print("failed, reason -> ");
-      pubSubErr(pubSubCLient.state());
+      pubSubErr(client.state());
       Serial.println(" < try again in 5 seconds");
       delay(5000);
     }
@@ -150,14 +143,14 @@ void connectToMqtt()
 
 void connectToWiFi(String init_str)
 {
-  if (init_str != String())
+  if (init_str != emptyString)
     Serial.print(init_str);
   while (WiFi.status() != WL_CONNECTED)
   {
     Serial.print(".");
     delay(1000);
   }
-  if (init_str != String())
+  if (init_str != emptyString)
     Serial.println("ok!");
 }
 
@@ -167,63 +160,63 @@ void checkWiFiThenMQTT()
   connectToMqtt();
 }
 
-void sendData(JsonObject messageRoot, char *topic)
+void checkNewFirmwareAndUpdateIfNeeded()
 {
-  serializeJson(messageRoot, Serial);
-  Serial.println();
-  char shadow[measureJson(messageRoot) + 1];
-  serializeJson(messageRoot, shadow, sizeof(shadow));
+  sendShadowGet();
+}
 
-  Serial.println("Mandando");
+void sendData(JsonObject root, const char topic[])
+{
+  Serial.printf("Sending  [%s]: ", topic);
 
-  if (!pubSubCLient.publish(topic, shadow, false))
-    pubSubErr(pubSubCLient.state());
+  serializeJson(root, Serial);
+  char shadow[measureJson(root) + 1];
+  serializeJson(root, shadow, sizeof(shadow));
+  if (!client.publish(topic, shadow, false))
+    pubSubErr(client.state());
+}
+
+void sendShadowGet()
+{
+  DynamicJsonDocument jsonBuffer(JSON_OBJECT_SIZE(3) + 100);
+  JsonObject root = jsonBuffer.to<JsonObject>();
+
+  sendData(root, MQTT_TOPIC_GET);
+}
+
+void sendShadowUpdate(int firmwareVersion)
+{
+  DynamicJsonDocument jsonBuffer(JSON_OBJECT_SIZE(3) + 100);
+  JsonObject root = jsonBuffer.to<JsonObject>();
+  JsonObject state = root.createNestedObject("state");
+  JsonObject state_reported = state.createNestedObject("reported");
+  state_reported["firmware"] = firmwareVersion;
+
+  sendData(root, MQTT_TOPIC_UPDATE);
 }
 
 void messageReceived(char *topic, byte *payload, unsigned int length)
 {
-  Serial.println("Recebeu");
-
   String topicStr = String(topic);
-  String payloadStr = String((char *)payload);
-
   Serial.println("Received [" + topicStr + "]");
-  Serial.println("Payload: " + payloadStr);
-  Serial.println();
+
+  String payloadStr = String((char *)payload);
+  Serial.println(payloadStr);
 
   if (topicStr == MQTT_TOPIC_GET_ACCEPTED)
   {
-    DynamicJsonDocument doc(1024);
+    DynamicJsonDocument doc(2048);
     deserializeJson(doc, payloadStr);
     JsonObject obj = doc.as<JsonObject>();
     JsonObject state = obj["state"];
-    JsonObject delta = obj["delta"];
-    int version = delta["version"].as<int>();
+    JsonObject delta = state["delta"];
+    int version = delta["firmware"].as<int>();
 
-    onNewVersion(version);
+    if (version != 0)
+    {
+      //TODO update firmware
+      Serial.println("Update firmware");
+      sendShadowUpdate(version);
+    }
   }
-}
-
-void getVersion()
-{
-  DynamicJsonDocument jsonBuffer(JSON_OBJECT_SIZE(3) + 100);
-  JsonObject root = jsonBuffer.to<JsonObject>();
-  sendData(root, MQTT_TOPIC_GET);
-  //Receive shadow on "$aws/things/otto/shadow/get/accepted"
-}
-
-void onNewVersion(int version)
-{
-  Serial.println("Version=" + version);
-  //TODO update firmware
-
-  // Update State
-  DynamicJsonDocument jsonBuffer(JSON_OBJECT_SIZE(3) + 100);
-  JsonObject root = jsonBuffer.to<JsonObject>();
-  JsonObject state = root.createNestedObject("state");
-  JsonObject reported = state.createNestedObject("reported");
-  JsonObject firmware = reported.createNestedObject("firmware");
-  firmware["value"] = version;
-
-  sendData(root, MQTT_TOPIC_UPDATE);
 }
