@@ -14,6 +14,8 @@
 //Enter values in secrets.h
 #include "secrets.h"
 
+#define VERSION 1569544301 //Unix Timestamp
+
 const int MQTT_PORT = 8883;
 const char MQTT_TOPIC_GET_ACCEPTED[] = "$aws/things/" THINGNAME "/shadow/get/accepted";
 const char MQTT_TOPIC_GET[] = "$aws/things/" THINGNAME "/shadow/get";
@@ -53,13 +55,16 @@ void setup()
   Serial.println();
   Serial.println();
 
+  Serial.print("Connecting to WiFi...");
   WiFi.mode(WIFI_STA);
   WiFiMulti.addAP(ssid, pass);
 
   while ((WiFiMulti.run() != WL_CONNECTED))
   {
+    Serial.print(".");
     delay(5000);
   }
+  Serial.println(" conected");
 
   NTPConnect();
 
@@ -71,6 +76,7 @@ void setup()
 
   connectToMqtt();
 
+  sendShadowUpdate(VERSION);
   checkNewFirmwareAndUpdateIfNeeded();
 }
 
@@ -267,9 +273,6 @@ void messageReceived(char *topic, byte *payload, unsigned int length)
     {
       Serial.println("New firmware version: " + String(version));
       updateFirmware();
-
-      //FIXME update version
-      sendShadowUpdate(version);
     }
   }
   else if (topicStr == MQTT_TOPIC_UPDATE_DELTA)
@@ -284,9 +287,6 @@ void messageReceived(char *topic, byte *payload, unsigned int length)
     {
       Serial.println("New firmware version: " + String(version));
       updateFirmware();
-
-      //FIXME update version
-      sendShadowUpdate(version);
     }
   }
 }
