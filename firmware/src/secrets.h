@@ -10,7 +10,9 @@ const char pass[] = "";
 int8_t TIME_ZONE = -3; //NYC(USA): -5 UTC
 #define USE_SUMMER_TIME_DST  //uncomment to use DST
 
-const char MQTT_HOST[] = "a183w3orhhc77-ats.iot.us-east-1.amazonaws.com";
+const char MQTT_HOST[] = ""; //Example: a183w3orhhc77-ats.iot.us-east-1.amazonaws.com
+const char S3_BUCKET[] = ""; //Example: https://bucket-name.s3.amazonaws.com/
+const char S3_FINGETPRINT[] = "17:E0:A9:3E:58:AF:0A:06:8D:6C:2D:B6:C1:80:B3:E7:E3:52:D4:8E";
 
 // Obtain First CA certificate for Amazon AWS
 // https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication

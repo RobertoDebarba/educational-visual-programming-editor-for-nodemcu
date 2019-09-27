@@ -1,9 +1,15 @@
 #include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
+//---OTA--------------------------------------------------
+#include <ESP8266httpUpdate.h>
+//--------------------------------------------------------
+//---AWS IoT----------------------------------------------
 #include <WiFiClientSecure.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include <time.h>
 #define emptyString String()
+//--------------------------------------------------------
 
 //Enter values in secrets.h
 #include "secrets.h"
@@ -21,6 +27,7 @@ uint8_t DST = 0;
 #endif
 
 WiFiClientSecure net;
+ESP8266WiFiMulti WiFiMulti;
 
 BearSSL::X509List cert(cacert);
 BearSSL::X509List client_crt(client_cert);
@@ -34,10 +41,10 @@ time_t nowish = 1510592825;
 
 void NTPConnect();
 void connectToMqtt();
-void connectToWiFi(String init_str);
-void checkWiFiThenMQTT();
 void checkNewFirmwareAndUpdateIfNeeded();
 void messageReceived(char *topic, byte *payload, unsigned int length);
+
+void updateFirmware();
 
 void setup()
 {
@@ -45,10 +52,14 @@ void setup()
   delay(5000);
   Serial.println();
   Serial.println();
-  WiFi.hostname(THINGNAME);
+
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, pass);
-  connectToWiFi(String("Attempting to connect to SSID: ") + String(ssid));
+  WiFiMulti.addAP(ssid, pass);
+
+  while ((WiFiMulti.run() != WL_CONNECTED))
+  {
+    delay(5000);
+  }
 
   NTPConnect();
 
@@ -65,14 +76,19 @@ void setup()
 
 void loop()
 {
-  if (!client.connected())
+  if ((WiFiMulti.run() == WL_CONNECTED))
   {
-    checkWiFiThenMQTT();
+    if (!client.connected())
+    {
+      connectToMqtt();
+    }
+    else
+    {
+      client.loop();
+    }
   }
-  else
-  {
-    client.loop();
-  }
+
+  delay(5000);
 }
 
 void NTPConnect()
@@ -140,39 +156,75 @@ void connectToMqtt()
   }
 }
 
-void connectToWiFi(String init_str)
-{
-  if (init_str != emptyString)
-    Serial.print(init_str);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    Serial.print(".");
-    delay(1000);
-  }
-  if (init_str != emptyString)
-    Serial.println("ok!");
-}
-
-void checkWiFiThenMQTT()
-{
-  connectToWiFi("Checking WiFi");
-  connectToMqtt();
-}
-
 void checkNewFirmwareAndUpdateIfNeeded()
 {
   sendShadowGet();
 }
 
+void configureWifiForFirmwareUpdate()
+{
+  Serial.print("Reconnecting WiFi...");
+  while (!WiFi.reconnect())
+  {
+    Serial.print(".");
+    delay(5000);
+  }
+  Serial.println(" success");
+
+  Serial.print("Validating certificate... ");
+  if (net.verify(S3_FINGETPRINT, "s3.amazonaws.com"))
+  {
+    Serial.println("certificate matches");
+  }
+  else
+  {
+    Serial.println("certificate doesn't match");
+    return;
+  }
+
+  net.setFingerprint(S3_FINGETPRINT);
+}
+
+void updateFirmware()
+{
+  Serial.println();
+  Serial.println("Preparing to update firmware...");
+
+  String fwURL = String(S3_BUCKET);
+  fwURL.concat("firmware.bin");
+  Serial.println(fwURL);
+
+  configureWifiForFirmwareUpdate();
+
+  Serial.println("Updating...");
+  t_httpUpdate_return ret = ESPhttpUpdate.update(net, fwURL, "");
+  switch (ret)
+  {
+  case HTTP_UPDATE_FAILED:
+    Serial.printf("HTTP_UPDATE_FAILD Error (%d): %s", ESPhttpUpdate.getLastError(), ESPhttpUpdate.getLastErrorString().c_str());
+    break;
+
+  case HTTP_UPDATE_NO_UPDATES:
+    Serial.println("HTTP_UPDATE_NO_UPDATES");
+    break;
+
+  case HTTP_UPDATE_OK:
+    Serial.println("HTTP_UPDATE_OK");
+    break;
+  }
+}
+
 void sendData(JsonObject root, const char topic[])
 {
-  Serial.printf("Sending  [%s]: ", topic);
+  Serial.printf("--> Sending  [%s] ", topic);
 
   serializeJson(root, Serial);
   char shadow[measureJson(root) + 1];
   serializeJson(root, shadow, sizeof(shadow));
   if (!client.publish(topic, shadow, false))
     pubSubErr(client.state());
+
+  Serial.println();
 }
 
 void sendShadowGet()
@@ -197,7 +249,7 @@ void sendShadowUpdate(int firmwareVersion)
 void messageReceived(char *topic, byte *payload, unsigned int length)
 {
   String topicStr = String(topic);
-  Serial.println("Received [" + topicStr + "]");
+  Serial.print("--> Received [" + topicStr + "] ");
 
   String payloadStr = String((char *)payload);
   Serial.println(payloadStr);
@@ -213,8 +265,10 @@ void messageReceived(char *topic, byte *payload, unsigned int length)
 
     if (version != 0)
     {
-      //TODO update firmware
-      Serial.println("Update firmware");
+      Serial.println("New firmware version: " + String(version));
+      updateFirmware();
+
+      //FIXME update version
       sendShadowUpdate(version);
     }
   }
@@ -228,8 +282,10 @@ void messageReceived(char *topic, byte *payload, unsigned int length)
 
     if (version != 0)
     {
-      //TODO update firmware
-      Serial.println("Update firmware");
+      Serial.println("New firmware version: " + String(version));
+      updateFirmware();
+
+      //FIXME update version
       sendShadowUpdate(version);
     }
   }
