@@ -14,6 +14,12 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 class FirmwareOTAService {
 
+    private static final String REPLACE_GLOBAL_INIT = "//@@REPLACE_GLOBAL_INIT@@";
+    private static final String REPLACE_SETUP = "//@@REPLACE_SETUP@@";
+    private static final String REPLACE_LOOP = "//@@REPLACE_LOOP@@";
+    private static final String REPLACE_GLOBAL_FUNCTIONS = "//@@REPLACE_GLOBAL_FUNCTIONS@@";
+    private static final String REPLACE_FIRMWARE_VERSION = "//@@REPLACE_FIRMWARE_VERSION@@";
+
     private static final String GLOBAL_INIT_CODE = "#include <ESP8266WiFi.h>\n" +
             "#include <ESP8266WiFiMulti.h>\n" +
             "//---OTA--------------------------------------------------\n" +
@@ -35,7 +41,7 @@ class FirmwareOTAService {
             "//Enter values in secrets.h\n" +
             "#include \"secrets.h\"\n" +
             "\n" +
-            "#define VERSION 1569544301 //Unix Timestamp\n" +
+            "#define VERSION " + REPLACE_FIRMWARE_VERSION + " //Unix Timestamp\n" +
             "\n" +
             "const int MQTT_PORT = 8883;\n" +
             "const char MQTT_TOPIC_GET_ACCEPTED[] = \"$aws/things/\" THINGNAME \"/shadow/get/accepted\";\n" +
@@ -296,16 +302,18 @@ class FirmwareOTAService {
             "  }\n" +
             "}";
 
-    private static final String REPLACE_GLOBAL_INIT = "//@@REPLACE_GLOBAL_INIT@@";
-    private static final String REPLACE_SETUP = "//@@REPLACE_SETUP@@";
-    private static final String REPLACE_LOOP = "//@@REPLACE_LOOP@@";
-    private static final String REPLACE_GLOBAL_FUNCTIONS = "//@@REPLACE_GLOBAL_FUNCTIONS@@";
 
     public String injectOTACode(String sourceCode) {
         String code = sourceCode.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
         code = code.replace(REPLACE_SETUP, SETUP_CODE);
         code = code.replace(REPLACE_LOOP, LOOP_CODE);
-        return code.replace(REPLACE_GLOBAL_FUNCTIONS, GLOBAL_FUNCTIONS_CODE);
+        code = code.replace(REPLACE_GLOBAL_FUNCTIONS, GLOBAL_FUNCTIONS_CODE);
+        code = code.replace(REPLACE_FIRMWARE_VERSION, this.getUnixEpochTimeAsString());
+        return code;
+    }
+
+    private String getUnixEpochTimeAsString() {
+        return Long.toString(System.currentTimeMillis() / 1000L);
     }
 
 
