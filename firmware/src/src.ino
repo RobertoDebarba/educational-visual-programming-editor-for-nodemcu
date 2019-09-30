@@ -10,6 +10,11 @@
 #include <time.h>
 #define emptyString String()
 //--------------------------------------------------------
+//---WiFi Manager-----------------------------------------
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include <WiFiManager.h>
+//--------------------------------------------------------
 
 //Enter values in secrets.h
 #include "secrets.h"
@@ -27,6 +32,8 @@ uint8_t DST = 1;
 #else
 uint8_t DST = 0;
 #endif
+
+WiFiManager wifiManager;
 
 WiFiClientSecure net;
 ESP8266WiFiMulti WiFiMulti;
@@ -55,16 +62,7 @@ void setup()
   Serial.println();
   Serial.println();
 
-  Serial.print("Connecting to WiFi...");
-  WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP(ssid, pass);
-
-  while ((WiFiMulti.run() != WL_CONNECTED))
-  {
-    Serial.print(".");
-    delay(5000);
-  }
-  Serial.println(" conected");
+  wifiManager.autoConnect("Otto FURB");
 
   NTPConnect();
 
@@ -82,16 +80,13 @@ void setup()
 
 void loop()
 {
-  if ((WiFiMulti.run() == WL_CONNECTED))
+  if (!client.connected())
   {
-    if (!client.connected())
-    {
-      connectToMqtt();
-    }
-    else
-    {
-      client.loop();
-    }
+    connectToMqtt();
+  }
+  else
+  {
+    client.loop();
   }
 
   delay(5000);
