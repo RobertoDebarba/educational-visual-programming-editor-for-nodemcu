@@ -303,18 +303,13 @@ class FirmwareOTAService {
             "}";
 
 
-    public String injectOTACode(String sourceCode) {
+    public String injectOTACode(String sourceCode, String firmwareVersion) {
         String code = sourceCode.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
         code = code.replace(REPLACE_SETUP, SETUP_CODE);
         code = code.replace(REPLACE_LOOP, LOOP_CODE);
         code = code.replace(REPLACE_GLOBAL_FUNCTIONS, GLOBAL_FUNCTIONS_CODE);
-        code = code.replace(REPLACE_FIRMWARE_VERSION, this.getUnixEpochTimeAsString());
+        code = code.replace(REPLACE_FIRMWARE_VERSION, firmwareVersion);
         return code;
     }
-
-    private String getUnixEpochTimeAsString() {
-        return Long.toString(System.currentTimeMillis() / 1000L);
-    }
-
 
 }

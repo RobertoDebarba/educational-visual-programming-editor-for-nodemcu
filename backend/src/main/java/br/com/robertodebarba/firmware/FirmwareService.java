@@ -1,5 +1,6 @@
 package br.com.robertodebarba.firmware;
 
+import br.com.robertodebarba.aws.AwsIotClient;
 import br.com.robertodebarba.aws.AwsS3Client;
 import br.com.robertodebarba.platformio.PlatformIOService;
 import org.apache.commons.io.FileUtils;
@@ -32,15 +33,20 @@ public class FirmwareService {
     @Inject
     AwsS3Client awsS3Client;
 
+    @Inject
+    AwsIotClient awsIotClient;
+
     public boolean compile(final String sourceCode) {
         final String processDirectory = this.createProcessDirectory();
 
         try {
-            final String sourceCodeWithOTA = firmwareOTAService.injectOTACode(sourceCode);
+            final String newFirmwareVersion = getUnixEpochTimeAsString();
+
+            final String sourceCodeWithOTA = firmwareOTAService.injectOTACode(sourceCode, newFirmwareVersion);
             final boolean compileResult = this.platformIOService.compile(sourceCodeWithOTA, processDirectory);
 
             this.uploadFirmwareToS3(processDirectory);
-            //TODO notify firmware update
+            awsIotClient.updateFirmwareVersion(newFirmwareVersion);
 
             return compileResult;
         } finally {
@@ -80,6 +86,10 @@ public class FirmwareService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to delete project directory", e);
         }
+    }
+
+    private String getUnixEpochTimeAsString() {
+        return Long.toString(System.currentTimeMillis() / 1000L);
     }
 
 }
