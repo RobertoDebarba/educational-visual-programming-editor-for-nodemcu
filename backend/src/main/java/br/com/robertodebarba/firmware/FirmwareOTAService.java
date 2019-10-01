@@ -1,11 +1,13 @@
 package br.com.robertodebarba.firmware;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Injeta no código recebido as instruções necessárias para:
  * <ul>
- *     <li>Configuração de WiFi (WiFi Manager)</li>
+ *     <li>Configuração de WiFi</li>
  *     <li>Atualização via OTA</li>
  *     <li>Conexão MQTT via AWS IoT</li>
  *     <li>Versão do firmware</li>
@@ -19,6 +21,11 @@ class FirmwareOTAService {
     private static final String REPLACE_LOOP = "//@@REPLACE_LOOP@@";
     private static final String REPLACE_GLOBAL_FUNCTIONS = "//@@REPLACE_GLOBAL_FUNCTIONS@@";
     private static final String REPLACE_FIRMWARE_VERSION = "//@@REPLACE_FIRMWARE_VERSION@@";
+    private static final String REPLACE_DEFINE_WIFIMANAGER = "//@@REPLACE_DEFINE_WIFIMANAGER@@";
+    private static final String REPLACE_WIFI_SSID = "@@REPLACE_WIFI_SSID@@";
+    private static final String REPLACE_WIFI_PASSWORD = "@@REPLACE_WIFI_PASSWORD@@";
+
+    private static final String REGEX_CONFI_WIFI_BLOCK = "//@@REPLACE_WIFI=(.*);(.*)@@";
 
     private static final String GLOBAL_INIT_CODE = "#include <ESP8266WiFi.h>\n" +
             "#include <ESP8266WiFiMulti.h>\n" +
@@ -43,6 +50,8 @@ class FirmwareOTAService {
             "\n" +
             "#define VERSION " + REPLACE_FIRMWARE_VERSION + " //Unix Timestamp\n" +
             "\n" +
+            "@@REPLACE_DEFINE_WIFIMANAGER@@ //Use WiFi Manager or fixed SSID and password\n" +
+            "\n" +
             "const int MQTT_PORT = 8883;\n" +
             "const char MQTT_TOPIC_GET_ACCEPTED[] = \"$aws/things/\" THINGNAME \"/shadow/get/accepted\";\n" +
             "const char MQTT_TOPIC_GET[] = \"$aws/things/\" THINGNAME \"/shadow/get\";\n" +
@@ -55,7 +64,9 @@ class FirmwareOTAService {
             "uint8_t DST = 0;\n" +
             "#endif\n" +
             "\n" +
+            "#ifdef WIFIMANAGER\n" +
             "WiFiManager wifiManager;\n" +
+            "#endif\n" +
             "\n" +
             "WiFiClientSecure net;\n" +
             "ESP8266WiFiMulti WiFiMulti;\n" +
@@ -82,7 +93,20 @@ class FirmwareOTAService {
             "  Serial.println();\n" +
             "  Serial.println();\n" +
             "\n" +
+            "#ifdef WIFIMANAGER\n" +
             "  wifiManager.autoConnect(\"Otto FURB\");\n" +
+            "#else\n" +
+            "  Serial.print(\"Connecting to WiFi...\");\n" +
+            "  WiFi.mode(WIFI_STA);\n" +
+            "  WiFiMulti.addAP(@@REPLACE_WIFI_SSID@@, @@REPLACE_WIFI_PASSWORD@@);\n" +
+            "\n" +
+            "  while ((WiFiMulti.run() != WL_CONNECTED))\n" +
+            "  {\n" +
+            "    Serial.print(\".\");\n" +
+            "    delay(5000);\n" +
+            "  }\n" +
+            "  Serial.println(\" conected\");\n" +
+            "#endif\n" +
             "\n" +
             "  NTPConnect();\n" +
             "\n" +
@@ -97,7 +121,8 @@ class FirmwareOTAService {
             "  sendShadowUpdate(VERSION);\n" +
             "  checkNewFirmwareAndUpdateIfNeeded();";
 
-    private static final String LOOP_CODE = "if (!client.connected())\n" +
+    private static final String LOOP_CODE = "#ifdef WIFIMANAGER\n" +
+            "  if (!client.connected())\n" +
             "  {\n" +
             "    connectToMqtt();\n" +
             "  }\n" +
@@ -105,6 +130,19 @@ class FirmwareOTAService {
             "  {\n" +
             "    client.loop();\n" +
             "  }\n" +
+            "#else\n" +
+            "  if ((WiFiMulti.run() == WL_CONNECTED))\n" +
+            "  {\n" +
+            "    if (!client.connected())\n" +
+            "    {\n" +
+            "      connectToMqtt();\n" +
+            "    }\n" +
+            "    else\n" +
+            "    {\n" +
+            "      client.loop();\n" +
+            "    }\n" +
+            "  }\n" +
+            "#endif\n" +
             "\n" +
             "  delay(5000);";
 
@@ -302,14 +340,39 @@ class FirmwareOTAService {
             "  }\n" +
             "}";
 
+    private static final String DEFINE_WIFIMANAGER = "#define WIFIMANAGER true //Use WiFi Manager or fixed SSID and password";
 
     public String injectOTACode(String sourceCode, String firmwareVersion) {
-        String code = sourceCode.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
+        String code = this.configureWifi(sourceCode);
+        code = code.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
         code = code.replace(REPLACE_SETUP, SETUP_CODE);
         code = code.replace(REPLACE_LOOP, LOOP_CODE);
         code = code.replace(REPLACE_GLOBAL_FUNCTIONS, GLOBAL_FUNCTIONS_CODE);
         code = code.replace(REPLACE_FIRMWARE_VERSION, firmwareVersion);
         return code;
+    }
+
+    /**
+     * Busca pelo placeholder REGEX_CONFI_WIFI_BLOCK no código.
+     * <ul>
+     * <li>Se existir significa que o usuário configurou manualmente o WiFi. Nesse caso obtém a senha e remove a definição
+     * do WiFi Manager.</li>
+     * <li>Se não exisir significa que o usuário não configurou manualmente o WiFi. Nesse caso define o Wifi Manager.</li>
+     * </ul>
+     */
+    private String configureWifi(String sourceCode) {
+        final Matcher matcher = Pattern.compile(REGEX_CONFI_WIFI_BLOCK).matcher(sourceCode);
+        if (!matcher.matches()) {
+            return sourceCode.replace(REPLACE_DEFINE_WIFIMANAGER, DEFINE_WIFIMANAGER);
+        }
+
+        final String ssid = matcher.group(1);
+        final String password = matcher.group(2);
+
+        String code = sourceCode.replaceFirst(REGEX_CONFI_WIFI_BLOCK, "");
+        code = code.replace(REPLACE_DEFINE_WIFIMANAGER, "");
+        code = code.replace(REPLACE_WIFI_SSID, ssid);
+        return code.replace(REPLACE_WIFI_PASSWORD, password);
     }
 
 }

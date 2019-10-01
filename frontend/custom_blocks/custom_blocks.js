@@ -217,3 +217,18 @@ Blockly.Blocks['event_loop'] = {
         this.moveBy(200, 0);
     }
 };
+
+Blockly.Blocks['config_wifi'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Configurar Wi-Fi")
+            .appendField(new Blockly.FieldTextInput(""), "ssid")
+            .appendField("com a senha")
+            .appendField(new Blockly.FieldTextInput(""), "password");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(180);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};

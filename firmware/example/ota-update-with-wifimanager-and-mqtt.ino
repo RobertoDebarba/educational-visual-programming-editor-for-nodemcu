@@ -21,6 +21,8 @@
 
 #define VERSION 1569544301 //Unix Timestamp
 
+#define WIFIMANAGER true //Use WiFi Manager or fixed SSID and password
+
 const int MQTT_PORT = 8883;
 const char MQTT_TOPIC_GET_ACCEPTED[] = "$aws/things/" THINGNAME "/shadow/get/accepted";
 const char MQTT_TOPIC_GET[] = "$aws/things/" THINGNAME "/shadow/get";
@@ -33,7 +35,9 @@ uint8_t DST = 1;
 uint8_t DST = 0;
 #endif
 
+#ifdef WIFIMANAGER
 WiFiManager wifiManager;
+#endif
 
 WiFiClientSecure net;
 ESP8266WiFiMulti WiFiMulti;
@@ -62,7 +66,20 @@ void setup()
   Serial.println();
   Serial.println();
 
+#ifdef WIFIMANAGER
   wifiManager.autoConnect("Otto FURB");
+#else
+  Serial.print("Connecting to WiFi...");
+  WiFi.mode(WIFI_STA);
+  WiFiMulti.addAP(ssid, pass);
+
+  while ((WiFiMulti.run() != WL_CONNECTED))
+  {
+    Serial.print(".");
+    delay(5000);
+  }
+  Serial.println(" conected");
+#endif
 
   NTPConnect();
 
@@ -80,6 +97,7 @@ void setup()
 
 void loop()
 {
+#ifdef WIFIMANAGER
   if (!client.connected())
   {
     connectToMqtt();
@@ -88,6 +106,19 @@ void loop()
   {
     client.loop();
   }
+#else
+  if ((WiFiMulti.run() == WL_CONNECTED))
+  {
+    if (!client.connected())
+    {
+      connectToMqtt();
+    }
+    else
+    {
+      client.loop();
+    }
+  }
+#endif
 
   delay(5000);
 }

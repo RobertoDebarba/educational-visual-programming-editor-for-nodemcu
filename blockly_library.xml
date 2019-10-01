@@ -752,4 +752,58 @@
         <field name="HUE">50</field>
       </block>
     </value>
+  </block><block type="factory_base" id="2P7`kJf+D9U@3r#8bkF|" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">config_wifi</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="BW#eyYI)jljuE|i|b#bb">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="_$RksYm?6zspdXtnsu`L">
+            <field name="TEXT">Configurar Wi-Fi</field>
+            <next>
+              <block type="field_input" id="BtUNCo#I/:h+Qh`vbltW">
+                <field name="TEXT"/>
+                <field name="FIELDNAME">ssid</field>
+                <next>
+                  <block type="field_static" id="#$4J0HsaG]2]?vx)#tF*">
+                    <field name="TEXT">com a senha</field>
+                    <next>
+                      <block type="field_input" id="zlfsvG)!.j.QAsm;puox">
+                        <field name="TEXT"/>
+                        <field name="FIELDNAME">password</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="3w~Yvk?H9s~WhEj2zQg7" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id=";IG~GE:wV_3^j$39}XO3" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="--tN;L$+lS7n1PG@.apz"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="nTd3UGIqGSi@@/Vj=.};"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="[etp+4JU;Qy,G=Ih_eM2">
+        <mutation colour="#5ba5a5"/>
+        <field name="HUE">180</field>
+      </block>
+    </value>
   </block></xml>
