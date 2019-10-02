@@ -57,6 +57,8 @@ void connectToMqtt();
 void checkNewFirmwareAndUpdateIfNeeded();
 void messageReceived(char *topic, byte *payload, unsigned int length);
 
+void sendShadowGet();
+void sendShadowUpdate(int firmwareVersion);
 void updateFirmware();
 
 void setup()

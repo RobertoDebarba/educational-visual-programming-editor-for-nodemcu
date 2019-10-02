@@ -25,7 +25,7 @@ class FirmwareOTAService {
     private static final String REPLACE_WIFI_SSID = "@@REPLACE_WIFI_SSID@@";
     private static final String REPLACE_WIFI_PASSWORD = "@@REPLACE_WIFI_PASSWORD@@";
 
-    private static final String REGEX_CONFI_WIFI_BLOCK = "//@@REPLACE_WIFI=(.*);(.*)@@";
+    private static final String REGEX_CONFIG_WIFI_BLOCK = "//@@REPLACE_DEFINE_WIFI_SSID_AND_PASSWORD=(.*);(.*)@@";
 
     private static final String GLOBAL_INIT_CODE = "#include <ESP8266WiFi.h>\n" +
             "#include <ESP8266WiFiMulti.h>\n" +
@@ -50,7 +50,7 @@ class FirmwareOTAService {
             "\n" +
             "#define VERSION " + REPLACE_FIRMWARE_VERSION + " //Unix Timestamp\n" +
             "\n" +
-            "@@REPLACE_DEFINE_WIFIMANAGER@@ //Use WiFi Manager or fixed SSID and password\n" +
+            REPLACE_DEFINE_WIFIMANAGER + " //Use WiFi Manager or fixed SSID and password\n" +
             "\n" +
             "const int MQTT_PORT = 8883;\n" +
             "const char MQTT_TOPIC_GET_ACCEPTED[] = \"$aws/things/\" THINGNAME \"/shadow/get/accepted\";\n" +
@@ -86,6 +86,8 @@ class FirmwareOTAService {
             "void checkNewFirmwareAndUpdateIfNeeded();\n" +
             "void messageReceived(char *topic, byte *payload, unsigned int length);\n" +
             "\n" +
+            "void sendShadowUpdate(int firmwareVersion);\n" +
+            "void sendShadowGet();\n" +
             "void updateFirmware();";
 
     private static final String SETUP_CODE = "Serial.begin(115200);\n" +
@@ -98,7 +100,7 @@ class FirmwareOTAService {
             "#else\n" +
             "  Serial.print(\"Connecting to WiFi...\");\n" +
             "  WiFi.mode(WIFI_STA);\n" +
-            "  WiFiMulti.addAP(@@REPLACE_WIFI_SSID@@, @@REPLACE_WIFI_PASSWORD@@);\n" +
+            "  WiFiMulti.addAP(" + REPLACE_WIFI_SSID + ", " + REPLACE_WIFI_PASSWORD + ");\n" +
             "\n" +
             "  while ((WiFiMulti.run() != WL_CONNECTED))\n" +
             "  {\n" +
@@ -343,12 +345,12 @@ class FirmwareOTAService {
     private static final String DEFINE_WIFIMANAGER = "#define WIFIMANAGER true //Use WiFi Manager or fixed SSID and password";
 
     public String injectOTACode(String sourceCode, String firmwareVersion) {
-        String code = this.configureWifi(sourceCode);
-        code = code.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
+        String code = sourceCode.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
         code = code.replace(REPLACE_SETUP, SETUP_CODE);
         code = code.replace(REPLACE_LOOP, LOOP_CODE);
         code = code.replace(REPLACE_GLOBAL_FUNCTIONS, GLOBAL_FUNCTIONS_CODE);
         code = code.replace(REPLACE_FIRMWARE_VERSION, firmwareVersion);
+        code = this.configureWifi(code); // Deve ser o último pois precisa do resultado dos outros
         return code;
     }
 
@@ -361,7 +363,7 @@ class FirmwareOTAService {
      * </ul>
      */
     private String configureWifi(String sourceCode) {
-        final Matcher matcher = Pattern.compile(REGEX_CONFI_WIFI_BLOCK).matcher(sourceCode);
+        final Matcher matcher = Pattern.compile(REGEX_CONFIG_WIFI_BLOCK).matcher(sourceCode);
         if (!matcher.matches()) {
             return sourceCode.replace(REPLACE_DEFINE_WIFIMANAGER, DEFINE_WIFIMANAGER);
         }
@@ -369,7 +371,7 @@ class FirmwareOTAService {
         final String ssid = matcher.group(1);
         final String password = matcher.group(2);
 
-        String code = sourceCode.replaceFirst(REGEX_CONFI_WIFI_BLOCK, "");
+        String code = sourceCode.replaceFirst(REGEX_CONFIG_WIFI_BLOCK, "");
         code = code.replace(REPLACE_DEFINE_WIFIMANAGER, "");
         code = code.replace(REPLACE_WIFI_SSID, ssid);
         return code.replace(REPLACE_WIFI_PASSWORD, password);

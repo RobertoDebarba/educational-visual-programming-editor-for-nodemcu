@@ -3,6 +3,6 @@ Blockly.JavaScript['config_wifi'] = function (block) {
     var text_password = block.getFieldValue('password');
     return `
         //DO NOT REMOVE!!!
-        //@@REPLACE_WIFI=${text_ssid};${text_password}@@
+        //@@REPLACE_DEFINE_WIFI_SSID_AND_PASSWORD=${text_ssid};${text_password}@@
     `;
 };

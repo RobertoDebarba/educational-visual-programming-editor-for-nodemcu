@@ -803,7 +803,7 @@
     <value name="COLOUR">
       <block type="colour_hue" id="[etp+4JU;Qy,G=Ih_eM2">
         <mutation colour="#5ba5a5"/>
-        <field name="HUE">180</field>
+        <field name="HUE">190</field>
       </block>
     </value>
   </block></xml>

@@ -8,11 +8,14 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
 @ApplicationScoped
 public class AwsIotClient {
+
+    private Logger logger = LoggerFactory.getLogger(AwsIotClient.class);
 
     @ConfigProperty(name = "aws.iot.clientendpoint")
     String clientEndpoint;
@@ -22,9 +25,8 @@ public class AwsIotClient {
 
     private AWSIotDevice device;
 
-    private Logger logger = LoggerFactory.getLogger(AwsIotClient.class);
-
-    public AwsIotClient() {
+    @PostConstruct
+    private void postConstruct() {
         logger.info("Connecting to AWS IoT device shadow");
 
         final String clientId = UUID.randomUUID().toString();

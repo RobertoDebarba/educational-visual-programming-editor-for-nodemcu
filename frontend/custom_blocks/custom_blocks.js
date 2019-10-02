@@ -227,7 +227,7 @@ Blockly.Blocks['config_wifi'] = {
             .appendField(new Blockly.FieldTextInput(""), "password");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(180);
+        this.setColour(190);
         this.setTooltip("");
         this.setHelpUrl("");
     }

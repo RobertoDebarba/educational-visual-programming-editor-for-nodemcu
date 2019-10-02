@@ -40,13 +40,15 @@ public class FirmwareService {
         final String processDirectory = this.createProcessDirectory();
 
         try {
-            final String newFirmwareVersion = getUnixEpochTimeAsString();
+            final String newFirmwareVersion = this.getUnixEpochTimeAsString();
 
             final String sourceCodeWithOTA = firmwareOTAService.injectOTACode(sourceCode, newFirmwareVersion);
             final boolean compileResult = this.platformIOService.compile(sourceCodeWithOTA, processDirectory);
 
-            this.uploadFirmwareToS3(processDirectory);
-            awsIotClient.updateFirmwareVersion(newFirmwareVersion);
+            if (compileResult) {
+                this.uploadFirmwareToS3(processDirectory);
+                awsIotClient.updateFirmwareVersion(newFirmwareVersion);
+            }
 
             return compileResult;
         } finally {
