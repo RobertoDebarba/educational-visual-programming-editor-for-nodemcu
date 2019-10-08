@@ -2,7 +2,7 @@ Blockly.Blocks['motion_moveforward'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Andar")
-        .appendField(new Blockly.FieldNumber(0, 0, Infinity, 1), "steps")
+        .appendField(new Blockly.FieldNumber(10, 0, Infinity, 1), "steps")
         .appendField("passos para frente");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -16,7 +16,7 @@ Blockly.Blocks['motion_moveback'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Andar")
-        .appendField(new Blockly.FieldNumber(0, 0, Infinity, 1), "steps")
+        .appendField(new Blockly.FieldNumber(10, 0, Infinity, 1), "steps")
         .appendField("passos para trás");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -30,7 +30,7 @@ Blockly.Blocks['motion_turndirection'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Virar")
-        .appendField(new Blockly.FieldAngle(0), "angle")
+        .appendField(new Blockly.FieldAngle(90), "angle")
         .appendField("para a")
         .appendField(new Blockly.FieldDropdown([["direita ↻","RIGHT"], ["esquerda ↺","LEFT"]]), "direction");
     this.setPreviousStatement(true, null);

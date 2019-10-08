@@ -2,10 +2,11 @@
  * MaxMatrix
  * Version 1.0 Feb 2013
  * Copyright 2013 Oscar Kin-Chung Au
+ * Adapted for OTTO version 9 use
  */
 
-#ifndef _MaxMatrix_H_
-#define _MaxMatrix_H_
+#ifndef _Otto_Matrix9_H_
+#define _Otto_Matrix9_H_
 
 #include "Arduino.h"
 
@@ -24,7 +25,7 @@
 #define max7219_reg_shutdown    0x0c
 #define max7219_reg_displayTest 0x0f
 
-class MaxMatrix
+class Otto_Matrix
 {
   private:
     byte data;
@@ -32,13 +33,13 @@ class MaxMatrix
     byte clock;
     byte num;
     byte buffer[80];
-    
+    int  rotation;
     void reload();
-	
+	  char rotation2;
   public:
-    MaxMatrix(byte data, byte load, byte clock, byte num);
+    Otto_Matrix();
     
-    void init();
+    void init(byte data, byte load, byte clock, byte num, int rotation);
     void clearMatrix();
     void setCommand(byte command, byte value);
     void setIntensity(byte intensity);

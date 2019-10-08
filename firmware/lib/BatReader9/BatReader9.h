@@ -1,12 +1,10 @@
 /******************************************************************************
-* Zowi Battery Reader Library
-* 
-* @version 20150824
+* Battery Reader Library  
 * @author Raul de Pablos Martin
-*
+* Adapted for OTTO
 ******************************************************************************/
-#ifndef __BATREADER_H__
-#define __BATREADER_H__
+#ifndef __BATREADER9_H__
+#define __BATREADER9_H__
 
 #if defined(ARDUINO) && ARDUINO >= 100
   #include "Arduino.h"
@@ -18,14 +16,14 @@
 ////////////////////////////
 // Definitions            //
 ////////////////////////////
-#define BAT_PIN 7
+//#define BAT_PIN A7
 #define BAT_MAX	4.2
 #define BAT_MIN	3.25
 #define ANA_REF	5
 #define SLOPE	100/(BAT_MAX - BAT_MIN)
 #define OFFSET	(100*BAT_MIN)/(BAT_MAX - BAT_MIN)
 
-class BatReader
+class BatReader9
 {
 public:
 	////////////////////////////
@@ -40,8 +38,8 @@ public:
 	// Functions              //
 	////////////////////////////
 	// BatReader -- BatReader class constructor
-	BatReader();
-
+	//BatReader();
+ void init(byte  BAT_PIN);
 	// readBatPercent
 	double readBatVoltage(void);
 	
@@ -64,8 +62,8 @@ private:
 	////////////////////////////
 	// Functions              //
 	////////////////////////////
-	
+	byte BAT_PIN;
 	
 };
 
-#endif // BATREADER_H //
+#endif // BATREADER2_H //

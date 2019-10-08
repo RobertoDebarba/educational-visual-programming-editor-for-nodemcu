@@ -20,10 +20,8 @@ class OttoCodeGenerator {
         let sensorTouchHeadGlobalFunctionsCode = containsSensorTouchHeadBlock ? SensorTouchHeadBlock.getGlobalFunctionsCode() : '';
 
         let code = `
-            #include <Servo.h>
-            #include <Oscillator.h>
-            #include <Otto.h>
-            Otto Otto;  //This is Otto!
+            #include <Otto9.h>
+            Otto9 Otto;  //This is Otto!
             
             //----------------------------------------------------------------------
             //-- Make sure the servos are in the right pin
@@ -36,10 +34,14 @@ class OttoCodeGenerator {
              * RIGHT FOOT 5 |---     ---| LEFT FOOT 4     
              */
             
-            #define PIN_LEFTLEG 2 //servo[2]
-            #define PIN_RIGHTLEG 3 //servo[3]
-            #define PIN_LEFTFOOT 4 //servo[4]
-            #define PIN_RIGHTFOOT 5 //servo[5]
+            #define PIN_LEFTLEG 4 //D2
+            #define PIN_RIGHTLEG 0 //D3
+            #define PIN_LEFTFOOT 16 //D0
+            #define PIN_RIGHTFOOT 5 //D1
+            #define PIN_NOISE_SENSOR 12
+            #define PIN_BUZZER 13
+            #define PIN_USTRIGGER 14
+            #define PIN_USECHO 15
             
             /*SOUNDS******************
              * S_connection  S_disconnection  S_buttonPushed S_mode1 S_mode2 S_mode3 S_surprise S_OhOoh  S_OhOoh2  S_cuddly 

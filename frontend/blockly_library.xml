@@ -11,7 +11,7 @@
             <field name="TEXT">Andar</field>
             <next>
               <block type="field_number" id=":M,oR/(`d=#i8%eku8Jq">
-                <field name="VALUE">0</field>
+                <field name="VALUE">10</field>
                 <field name="FIELDNAME">steps</field>
                 <field name="MIN">0</field>
                 <field name="MAX">Infinity</field>
@@ -62,7 +62,7 @@
             <field name="TEXT">Andar</field>
             <next>
               <block type="field_number" id="uj+mpI_z?Oe:XDtA#DWQ">
-                <field name="VALUE">0</field>
+                <field name="VALUE">10</field>
                 <field name="FIELDNAME">steps</field>
                 <field name="MIN">0</field>
                 <field name="MAX">Infinity</field>
@@ -113,7 +113,7 @@
             <field name="TEXT">Virar</field>
             <next>
               <block type="field_angle" id="L?xQLd8hN-`j+Ge27Ob.">
-                <field name="ANGLE">0</field>
+                <field name="ANGLE">90</field>
                 <field name="FIELDNAME">angle</field>
                 <next>
                   <block type="field_static" id="O7ZQP`sb/M5mIe0QeH76">

@@ -18,7 +18,7 @@ Blockly.JavaScript['event_setup'] = function (block) {
     //-- Setup ------------------------------------------------------//
     ///////////////////////////////////////////////////////////////////
     void setup() {
-        Otto.init(PIN_LEFTLEG,PIN_RIGHTLEG,PIN_LEFTFOOT,PIN_RIGHTFOOT,true); //Set the servo pins
+        Otto.init(PIN_LEFTLEG,PIN_RIGHTLEG,PIN_LEFTFOOT,PIN_RIGHTFOOT,true,PIN_NOISE_SENSOR,PIN_BUZZER,PIN_USTRIGGER,PIN_USECHO); //Set the servo pins
         Otto.sing(S_connection); //Otto wake up!
         Otto.home(); //Otto at rest position
         delay(50);

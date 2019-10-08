@@ -1,18 +1,20 @@
-#ifndef Otto_h
-#define Otto_h
+//----------------------------------------------------------------
+//-- OTTO version 9 
+//-----------------------------------------------------------------
+#ifndef Otto9_h
+#define Otto9_h
 
 #include <Servo.h>
 #include <Oscillator.h>
 #include <EEPROM.h>
-
 #include <US.h>
-#include "MaxMatrix.h"
-#include <BatReader.h>
 
-#include "Otto_mouths.h"
-#include "Otto_sounds.h"
-#include "Otto_gestures.h"
-
+#include "BatReader9.h"
+#include "Otto_Matrix9.h"
+#include "Otto_mouth9.h"
+#include "Otto_sound9.h"
+#include "Otto_gestures9.h"
+#include <TimerFreeTone.h>
 
 //-- Constants
 #define FORWARD     1
@@ -23,19 +25,16 @@
 #define MEDIUM      15
 #define BIG         30
 
-#define PIN_Buzzer  13
-#define PIN_Trigger 8
-#define PIN_Echo    9
-#define PIN_NoiseSensor 6
 
 
-class Otto
+
+class Otto9
 {
   public:
 
     //-- Otto initialization
-    void init(int YL, int YR, int RL, int RR, bool load_calibration=true, int NoiseSensor=PIN_NoiseSensor, int Buzzer=PIN_Buzzer, int USTrigger=PIN_Trigger, int USEcho=PIN_Echo);
-
+    void init(int YL, int YR, int RL, int RR, bool load_calibration, int NoiseSensor, int Buzzer, int USTrigger, int USEcho);
+    void initDC(int NoiseSensor, int Buzzer, int USTrigger, int USEcho);
     //-- Attach & detach functions
     void attachServos();
     void detachServos();
@@ -46,6 +45,7 @@ class Otto
 
     //-- Predetermined Motion Functions
     void _moveServos(int time, int  servo_target[]);
+    void _moveSingle(int position,int  servo_number);
     void oscillateServos(int A[4], int O[4], int T, double phase_diff[4], float cycle);
 
     //-- HOME = Otto at rest position
@@ -91,15 +91,16 @@ class Otto
 
     //-- Gestures
     void playGesture(int gesture);
-
- 
+    void initMATRIX(int DIN, int CS, int CLK, int rotate);
+    void matrixIntensity(int intensity);
+    void initBatLevel(int batteryPIN);
+    void setLed(byte X, byte Y, byte value);
   private:
-    
-    MaxMatrix ledmatrix=MaxMatrix(12,10,11, 1);
-    BatReader battery;
+   
+    BatReader9 battery;
     Oscillator servo[4];
     US us;
-
+    Otto_Matrix ledmatrix;
     int servo_pins[4];
     int servo_trim[4];
     int servo_position[4];

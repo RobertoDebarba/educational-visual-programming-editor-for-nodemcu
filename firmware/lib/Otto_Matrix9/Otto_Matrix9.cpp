@@ -2,24 +2,35 @@
  * MaxMatrix
  * Version 1.0 Feb 2013
  * Copyright 2013 Oscar Kin-Chung Au
+ * Adapted for OTTO version 9 use
  */
 
 
 #include "Arduino.h"
-#include "MaxMatrix.h"
+#include "Otto_Matrix9.h"
 
-MaxMatrix::MaxMatrix(byte _data, byte _load, byte _clock, byte _num) 
+Otto_Matrix::Otto_Matrix() 
 {
-	data = _data;
-	load = _load;
-	clock = _clock;
-	num = _num;
-	for (int i=0; i<80; i++)
-		buffer[i] = 0;
+	//data = _data;
+	//load = _load;
+	//clock = _clock;
+	//num = _num;
+	//for (int i=0; i<80; i++)
+		//buffer[i] = 0;
 }
 
-void MaxMatrix::init()
+void Otto_Matrix::init(byte _data, byte _load, byte _clock, byte _num, int _rotation)
 {
+   data = _data;
+  load = _load;
+  clock = _clock;
+  num = _num;
+  rotation = _rotation;
+  if ((rotation > 4) || (rotation == 0)) rotation = 1; // we have to have number between 1 and 4
+ // itoa(_rotation, rotation2,1);
+  for (int i=0; i<80; i++)
+    buffer[i] = 0;
+    
 	pinMode(data,  OUTPUT);
 	pinMode(clock, OUTPUT);
 	pinMode(load,  OUTPUT);
@@ -36,12 +47,12 @@ void MaxMatrix::init()
 	setIntensity(0x0f);    // the first 0x0f is the value you can set
 }
 
-void MaxMatrix::setIntensity(byte intensity)
+void Otto_Matrix::setIntensity(byte intensity)
 {
 	setCommand(max7219_reg_intensity, intensity);
 }
 
-void MaxMatrix::clearMatrix()
+void Otto_Matrix::clearMatrix()
 {
 	for (int i=0; i<8; i++) 
 		setColumnAll(i,0);
@@ -50,7 +61,7 @@ void MaxMatrix::clearMatrix()
 		buffer[i] = 0;
 }
 
-void MaxMatrix::setCommand(byte command, byte value)
+void Otto_Matrix::setCommand(byte command, byte value)
 {
 	digitalWrite(load, LOW);    
 	for (int i=0; i<num; i++) 
@@ -63,7 +74,7 @@ void MaxMatrix::setCommand(byte command, byte value)
 }
 
 
-void MaxMatrix::setColumn(byte col, byte value)
+void Otto_Matrix::setColumn(byte col, byte value)
 {
 	int n = col / 8;
 	int c = col % 8;
@@ -87,7 +98,7 @@ void MaxMatrix::setColumn(byte col, byte value)
 	buffer[col] = value;
 }
 
-void MaxMatrix::setColumnAll(byte col, byte value)
+void Otto_Matrix::setColumnAll(byte col, byte value)
 {
 	digitalWrite(load, LOW);    
 	for (int i=0; i<num; i++) 
@@ -100,7 +111,7 @@ void MaxMatrix::setColumnAll(byte col, byte value)
 	digitalWrite(load, HIGH);
 }
 
-void MaxMatrix::setDot(byte col, byte row, byte value)
+void Otto_Matrix::setDot(byte col, byte row, byte value)
 {
     bitWrite(buffer[col], row, value);
 
@@ -212,11 +223,36 @@ void MaxMatrix::shiftDown(bool rotate)
 }
 */
 // rutina para Zowi, para meter sus caritas en la matriz de 8
-void MaxMatrix::writeFull(unsigned long value) {
+void Otto_Matrix::writeFull(unsigned long value) {
+  if (rotation == 1) {
 	for (int r=0; r<5;r++){
             for (int c=0; c<6; c++){
                 setDot(6-c,7-r,(1L & (value >> r*6+c)));
                 }
             }
+  }
+if (rotation == 2) {
+  for (int r=0; r<5;r++){
+            for (int c=0; c<6; c++){
+                //setDot(6-c,7-r,(1L & (value >> r*6+c)));
+                setDot(1+c,r,    (1L & (value >> r*6+c)));
+                }
+            }
+  }
+  if (rotation == 3) {
+  for (int r=0; r<5;r++){
+            for (int c=0; c<6; c++){
+                //setDot(6-c,7-r,(1L & (value >> r*6+c)));
+                setDot(r,6-c,    (1L & (value >> r*6+c)));
+                }
+            }
+  }
+  if (rotation == 4) {
+  for (int r=0; r<5;r++){
+            for (int c=0; c<6; c++){
+                //setDot(6-c,7-r,(1L & (value >> r*6+c)));
+                setDot(7-r,1+c, (1L & (value >> r*6+c)));  
+                }
+            }
+  }
 }
-

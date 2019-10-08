@@ -1,28 +1,15 @@
-diff --git a/firmware/lib/BatReader/BatReader.h b/firmware/lib/BatReader/BatReader.h
-index d820f84..88f8d67 100644
---- a/firmware/lib/BatReader/BatReader.h
-+++ b/firmware/lib/BatReader/BatReader.h
-@@ -18,7 +18,7 @@
- ////////////////////////////
- // Definitions            //
- ////////////////////////////
--#define BAT_PIN A7
-+#define BAT_PIN 7
- #define BAT_MAX	4.2
- #define BAT_MIN	3.25
- #define ANA_REF	5
 diff --git a/firmware/lib/Oscillator/Oscillator.cpp b/firmware/lib/Oscillator/Oscillator.cpp
-index f01c1d0..ca06847 100644
+index ca06847..f01c1d0 100644
 --- a/firmware/lib/Oscillator/Oscillator.cpp
 +++ b/firmware/lib/Oscillator/Oscillator.cpp
 @@ -48,8 +48,8 @@ void Oscillator::attach(int pin, bool rev)
        //-- Initialization of oscilaltor parameters
        _TS=30;
        _T=2000;
--      _N = _T/_TS;
--      _inc = 2*M_PI/_N;
-+      _n = _T/_TS;
-+      _inc = 2*M_PI/_n;
+-      _n = _T/_TS;
+-      _inc = 2*M_PI/_n;
++      _N = _T/_TS;
++      _inc = 2*M_PI/_N;
  
        _previousMillis=0;
  
@@ -30,36 +17,61 @@ index f01c1d0..ca06847 100644
    _T=T;
    
    //-- Recalculate the parameters
--  _N = _T/_TS;
--  _inc = 2*M_PI/_N;
-+  _n = _T/_TS;
-+  _inc = 2*M_PI/_n;
+-  _n = _T/_TS;
+-  _inc = 2*M_PI/_n;
++  _N = _T/_TS;
++  _inc = 2*M_PI/_N;
  };
  
  /*******************************/
 diff --git a/firmware/lib/Oscillator/Oscillator.h b/firmware/lib/Oscillator/Oscillator.h
-index 8448426..7359f16 100644
+index 7359f16..8448426 100644
 --- a/firmware/lib/Oscillator/Oscillator.h
 +++ b/firmware/lib/Oscillator/Oscillator.h
 @@ -52,7 +52,7 @@ class Oscillator
      int _trim;        //-- Calibration offset
      double _phase;    //-- Current phase
      double _inc;      //-- Increment of phase
--    double _N;        //-- Number of samples
-+    double _n;        //-- Number of samples
+-    double _n;        //-- Number of samples
++    double _N;        //-- Number of samples
      unsigned int _TS; //-- sampling period (ms)
      
      long _previousMillis; 
-diff --git a/firmware/lib/Otto/Otto.h b/firmware/lib/Otto/Otto.h
-index 91efa06..1794018 100644
---- a/firmware/lib/Otto/Otto.h
-+++ b/firmware/lib/Otto/Otto.h
-@@ -26,7 +26,7 @@
- #define PIN_Buzzer  13
- #define PIN_Trigger 8
- #define PIN_Echo    9
--#define PIN_NoiseSensor A6
-+#define PIN_NoiseSensor 6
+diff --git a/firmware/lib/Otto9/Otto9.cpp b/firmware/lib/Otto9/Otto9.cpp
+index bb8dbbc..99ba6ec 100644
+--- a/firmware/lib/Otto9/Otto9.cpp
++++ b/firmware/lib/Otto9/Otto9.cpp
+@@ -180,14 +180,11 @@ void Otto9::_execute(int A[4], int O[4], int T, double phase_diff[4], float step
+ 
+   //-- Execute complete cycles
+   if (cycles >= 1) 
+-    for(int i = 0; i < cycles; i++) {
++    for(int i = 0; i < cycles; i++) 
+       oscillateServos(A,O, T, phase_diff);
+-      yield();
+-    }
+       
+   //-- Execute the final not complete cycle    
+   oscillateServos(A,O, T, phase_diff,(float)steps-cycles);
+-  yield();
+ }
  
  
- class Otto
+@@ -254,7 +251,7 @@ void Otto9::walk(float steps, int T, int dir){
+   //--       90 : Walk backward
+   //-- Feet servos also have the same offset (for tiptoe a little bit)
+   int A[4]= {30, 30, 20, 20};
+-  int O[4] = {0, 0, 4, 4};
++  int O[4] = {0, 0, 4, -4};
+   double phase_diff[4] = {0, 0, DEG2RAD(dir * -90), DEG2RAD(dir * -90)};
+ 
+   //-- Let's oscillate the servos!
+@@ -277,7 +274,7 @@ void Otto9::turn(float steps, int T, int dir){
+   //--   the right leg are bigger than the left. So, the robot describes an 
+   //--   left arc
+   int A[4]= {30, 30, 20, 20};
+-  int O[4] = {0, 0, 4, 4};
++  int O[4] = {0, 0, 4, -4};
+   double phase_diff[4] = {0, 0, DEG2RAD(-90), DEG2RAD(-90)}; 
+     
+   if (dir == LEFT) {  
