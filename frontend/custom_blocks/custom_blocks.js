@@ -83,7 +83,7 @@ Blockly.Blocks['control_waitseconds'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Esperar")
-        .appendField(new Blockly.FieldNumber(0, 0, Infinity, 1), "seconds")
+        .appendField(new Blockly.FieldNumber(1, 0, Infinity, 1), "seconds")
         .appendField("segundos");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

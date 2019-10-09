@@ -302,7 +302,7 @@
             <field name="TEXT">Esperar</field>
             <next>
               <block type="field_number" id="0{3VVYI$7GVR:d%btS/X">
-                <field name="VALUE">0</field>
+                <field name="VALUE">1</field>
                 <field name="FIELDNAME">seconds</field>
                 <field name="MIN">0</field>
                 <field name="MAX">Infinity</field>
