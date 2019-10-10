@@ -11,7 +11,7 @@ class SensorTouchHeadBlock {
 
     static getGlobalInitCode() {
         return `
-        #define PIN_TOUCH_SENSOR 0
+        #define PIN_TOUCH_SENSOR 3
         
         boolean isHeadTouched();\n`;
     }
