@@ -18,9 +18,9 @@ class MotionFeelingBlock {
 
     static getGlobalInitCode() {
         return `
-        int MATRX_DIN = 15;
-        int MATRX_CS =  13;
-        int MATRX_CLK = 12;
+        int MATRX_DIN = D8;
+        int MATRX_CS =  D7;
+        int MATRX_CLK = D6;
         int MATRIX_DIRECTION = 2;\n`;
     }
 
