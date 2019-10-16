@@ -364,7 +364,7 @@ class FirmwareOTAService {
      */
     private String configureWifi(String sourceCode) {
         final Matcher matcher = Pattern.compile(REGEX_CONFIG_WIFI_BLOCK).matcher(sourceCode);
-        if (!matcher.matches()) {
+        if (!matcher.find()) {
             return sourceCode.replace(REPLACE_DEFINE_WIFIMANAGER, DEFINE_WIFIMANAGER);
         }
 
