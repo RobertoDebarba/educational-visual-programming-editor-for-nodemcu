@@ -57,7 +57,7 @@ Blockly.Blocks['motion_feeling'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Mostrar sentimento")
-        .appendField(new Blockly.FieldDropdown([["😊","HAPPY"], ["😢","SAD"]]), "feeling");
+        .appendField(new Blockly.FieldDropdown([["😊","HAPPY"], ["😢","SAD"], ["🤔","INTERROGATION"], ["😍","LOVE"], ["😐","NEUTRAL"]]), "feeling");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
