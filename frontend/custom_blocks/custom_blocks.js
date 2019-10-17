@@ -70,7 +70,7 @@ Blockly.Blocks['motion_sing'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Cantar")
-        .appendField(new Blockly.FieldDropdown([["Super Mario","SUPER_MARIO"], ["Feliz aniversário","HAPPY_BIRTHDAY"]]), "song");
+        .appendField(new Blockly.FieldDropdown([["Felicidade","HAPPY"], ["Tristeza","SAD"], ["Surpresa","SURPRISE"], ["Feliz aniversário","HAPPY_BIRTHDAY"]]), "song");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
