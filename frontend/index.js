@@ -449,9 +449,12 @@ Index.initLanguage = function() {
  */
 Index.runJS = function() {
   Blockly.JavaScript.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
+  Index.disableCompile();
+
   var timeouts = 0;
   var checkTimeout = function() {
     if (timeouts++ > 1000000) {
+      Index.enableCompile();
       throw MSG['timeout'];
     }
   };
@@ -463,13 +466,46 @@ Index.runJS = function() {
   //   alert(MSG['badCode'].replace('%1', e));
   // }
   Index.firmwareService.compile(code)
-      .then(function (response) {
+      .then(async function (response) {
         console.log(response);
         console.log('Compile OK');
+        Index.enableCompile();
+
+        //Tempo para o robô baixar o novo programa
+        await sleep(3000);
+        alert('Programa enviado com sucesso!');
       })
       .catch(function (error) {
         console.error(error);
+        Index.enableCompile();
+        alert('Ocorreu uma falha ao enviar o projeto');
       });
+};
+
+Index.disableCompile = function() {
+  var runButtonIcon = document.getElementById('runButtonIcon');
+  var runButton = document.getElementById('runButton');
+  var trashButton = document.getElementById('trashButton');
+
+  runButtonIcon.classList.remove('fa-play');
+  runButtonIcon.classList.add('fa-cog');
+  runButtonIcon.classList.add('fa-spin');
+
+  runButton.disabled = true;
+  trashButton.disabled = true;
+};
+
+Index.enableCompile = function() {
+  var runButtonIcon = document.getElementById('runButtonIcon');
+  var runButton = document.getElementById('runButton');
+  var trashButton = document.getElementById('trashButton');
+
+  runButtonIcon.classList.remove('fa-cog');
+  runButtonIcon.classList.remove('fa-spin');
+  runButtonIcon.classList.add('fa-play');
+
+  runButton.disabled = false;
+  trashButton.disabled = false;
 };
 
 /**
