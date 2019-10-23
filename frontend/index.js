@@ -378,6 +378,24 @@ Index.init = function() {
 
   // Lazy-load the syntax-highlighting.
   window.setTimeout(Index.importPrettify, 1);
+
+  document.getElementById('localSaveButton')
+      .addEventListener('click', function() {
+        Index.exportBlockLibraryToFile();
+      });
+
+  document.getElementById('files').addEventListener('change',
+      function() {
+        // Warn user.
+        var replace = confirm('Importar um arquivo irá substituir o seu projeto atual. Deseja continuar?');
+        if (replace) {
+          Index.importBlockLibraryFromFile();
+          // Clear this so that the change event still fires even if the
+          // same file is chosen again. If the user re-imports a file, we
+          // want to reload the workspace with its contents.
+          this.value = null;
+        }
+      });
 };
 
 /**
@@ -413,14 +431,14 @@ Index.initLanguage = function() {
     }
     languageMenu.options.add(option);
   }
-  languageMenu.addEventListener('change', Index.changeLanguage, true);
+  // languageMenu.addEventListener('change', Index.changeLanguage, true);
 
   // Inject language strings.
   document.title += ' ' + MSG['title'];
-  document.getElementById('title').textContent = MSG['title'];
+  // document.getElementById('title').textContent = MSG['title'];
   document.getElementById('tab_blocks').textContent = MSG['blocks'];
 
-  document.getElementById('linkButton').title = MSG['linkTooltip'];
+//   document.getElementById('linkButton').title = MSG['linkTooltip'];
   document.getElementById('runButton').title = MSG['runTooltip'];
   document.getElementById('trashButton').title = MSG['trashTooltip'];
 };
@@ -466,6 +484,40 @@ Index.discard = function() {
       window.location.hash = '';
     }
   }
+};
+
+Index.importBlockLibraryFromFile = function () {
+  var files = document.getElementById('files');
+  var file = files.files[0];
+
+  if (!file) {
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    Index.workspace.clear();
+
+    var xml = Blockly.Xml.textToDom(e.target.result);
+    Blockly.Xml.domToWorkspace(xml, Index.workspace);
+  };
+
+  reader.readAsText(file);
+};
+
+Index.exportBlockLibraryToFile = function () {
+  var a = document.createElement("a");
+  document.body.appendChild(a);
+  a.style = "display: none";
+  a.download = "workspace.xml";
+
+  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlAsText = Blockly.Xml.domToText(xml);
+  var blob = new Blob([xmlAsText], {type: "text/plain"});
+  var url = window.URL.createObjectURL(blob);
+
+  a.href = url;
+  a.click();
+  window.URL.revokeObjectURL(url);
 };
 
 // Load the Code demo's language strings.

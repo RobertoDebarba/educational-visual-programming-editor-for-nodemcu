@@ -28,9 +28,9 @@ button {
   color: #000;
 }
 button.primary {
-  border: 1px solid #dd4b39;
-  background-color: #dd4b39;
-  color: #fff;
+  border: 1px solid #dd4b39 !important;
+  background-color: #dd4b39 !important;
+  color: #fff !important;
 }
 button.primary>img {
   opacity: 1;
@@ -161,4 +161,74 @@ button {
 }
 .run {
   background-position: -42px 0px;
+}
+
+#factoryHeader {
+  display: table;
+  height: 10%;
+}
+
+#factoryHeader p {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#factoryHeader button:disabled, .buttonStyle:disabled {
+  opacity: 0.6;
+}
+
+#factoryHeader button>*, .buttonStyle>* {
+  opacity: 1;
+  vertical-align: text-bottom;
+}
+
+#factoryHeader button, .buttonStyle {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  color: #000;
+  padding: 10px;
+  margin: 10px 5px;
+  font-size: small;
+}
+
+#factoryHeader .buttonStyle:hover:not(:disabled), button:hover:not(:disabled) {
+  box-shadow: 2px 2px 5px #888;
+}
+
+#factoryHeader .buttonStyle:hover:not(:disabled)>*, button:hover:not(:disabled)>* {
+  opacity: 1;
+}
+
+.run-button-group {
+  text-align: right;
+  width: 100%;
+}
+
+button>*, .buttonStyle>* {
+  opacity: 1;
+  vertical-align: text-bottom;
+}
+
+button, .buttonStyle {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  color: #000;
+  padding: 10px;
+  margin: 10px 5px;
+  font-size: small;
+}
+
+.buttonStyle:hover:not(:disabled), button:hover:not(:disabled) {
+  box-shadow: 2px 2px 5px #888;
+}
+
+.buttonStyle:hover:not(:disabled)>*, button:hover:not(:disabled)>* {
+  opacity: 1;
+}
+
+#files {
+  position: absolute;
+  visibility: hidden;
 }

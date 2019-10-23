@@ -6,7 +6,8 @@
   <title>Blockly Demo:</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="lib/code-prettify/desert.css">
-  <script src="/storage.js"></script>
+  <script src="lib/font-awesome/5ade57dc48.js"></script>
+  <script src="lib/blockly/storage.js"></script>
   <script src="env.js"></script>
   <script src="lib/blockly/blockly_compressed.js"></script>
   <script src="lib/blockly/blocks_compressed.js"></script>
@@ -25,11 +26,38 @@
     <tr>
       <td>
         <h1>
-          <span id="title">...</span>
+          <span id="title">Plataforma de programação visual para Esp8266</span>
         </h1>
       </td>
-      <td class="farSide">
+      <td class="farSide" style="visibility: hidden">
         <select id="languageMenu"></select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <div id="factoryHeader">
+        <p>
+          <label for="files" class="buttonStyle">
+            <span class=>Abrir</span>
+          </label>
+          <input id="files" type="file" name="files"
+                 accept="application/xml">
+
+          <button id="localSaveButton">Salvar</button>
+        </p>
+      </div>
+      </td>
+      <td>
+      <div id="factoryHeader" class="run-button-group">
+        <p>
+          <button id="trashButton" style="color: #606060">
+            <i class="fas fa-trash fa-lg"></i>
+          </button>
+          <button id="runButton" class="primary">
+            <i class="fas fa-play fa-lg"></i>
+          </button>
+        </p>
+      </div>
       </td>
     </tr>
     <tr>
@@ -38,18 +66,8 @@
           <tr id="tabRow" height="1em">
             <td id="tab_blocks" class="tabon">...</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tab_javascript" class="taboff">JavaScript</td>
-            <td class="tabmax">
-              <button id="trashButton" class="notext" title="...">
-                <img src='media/1x1.gif' class="trash icon21">
-              </button>
-              <button id="linkButton" class="notext" title="...">
-                <img src='media/1x1.gif' class="link icon21">
-              </button>
-              <button id="runButton" class="notext primary" title="...">
-                <img src='media/1x1.gif' class="run icon21">
-              </button>
-            </td>
+            <td id="tab_javascript" class="taboff">Código</td>
+            <td class="tabmax"></td>
           </tr>
         </table>
       </td>
