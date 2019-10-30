@@ -471,8 +471,6 @@ Index.runJS = function() {
         console.log('Compile OK');
         Index.enableCompile();
 
-        //Tempo para o robô baixar o novo programa
-        await sleep(3000);
         alert('Programa enviado com sucesso!');
       })
       .catch(function (error) {
