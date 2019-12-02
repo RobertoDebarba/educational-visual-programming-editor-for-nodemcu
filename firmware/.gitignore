@@ -6,3 +6,5 @@
 .pioenvs
 .pio
 .vscode
+
+src/src.cpp
