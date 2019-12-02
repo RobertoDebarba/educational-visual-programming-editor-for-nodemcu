@@ -352,8 +352,8 @@ Index.init = function() {
 
   Index.tabClick(Index.selected);
 
-  Index.bindClick('trashButton',
-      function() {Index.discard(); Index.renderContent();});
+  // Index.bindClick('trashButton',
+  //     function() {Index.discard(); Index.renderContent();});
   Index.bindClick('runButton', Index.runJS);
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
@@ -440,7 +440,7 @@ Index.initLanguage = function() {
 
 //   document.getElementById('linkButton').title = MSG['linkTooltip'];
   document.getElementById('runButton').title = MSG['runTooltip'];
-  document.getElementById('trashButton').title = MSG['trashTooltip'];
+  // document.getElementById('trashButton').title = MSG['trashTooltip'];
 };
 
 /**
@@ -483,27 +483,27 @@ Index.runJS = function() {
 Index.disableCompile = function() {
   var runButtonIcon = document.getElementById('runButtonIcon');
   var runButton = document.getElementById('runButton');
-  var trashButton = document.getElementById('trashButton');
+  // var trashButton = document.getElementById('trashButton');
 
   runButtonIcon.classList.remove('fa-play');
   runButtonIcon.classList.add('fa-cog');
   runButtonIcon.classList.add('fa-spin');
 
   runButton.disabled = true;
-  trashButton.disabled = true;
+  // trashButton.disabled = true;
 };
 
 Index.enableCompile = function() {
   var runButtonIcon = document.getElementById('runButtonIcon');
   var runButton = document.getElementById('runButton');
-  var trashButton = document.getElementById('trashButton');
+  // var trashButton = document.getElementById('trashButton');
 
   runButtonIcon.classList.remove('fa-cog');
   runButtonIcon.classList.remove('fa-spin');
   runButtonIcon.classList.add('fa-play');
 
   runButton.disabled = false;
-  trashButton.disabled = false;
+  // trashButton.disabled = false;
 };
 
 /**
