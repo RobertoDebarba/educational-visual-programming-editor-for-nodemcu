@@ -15,6 +15,7 @@ import javax.enterprise.context.ApplicationScoped;
 class FirmwareOTAService {
 
     private static final String REPLACE_GLOBAL_INIT = "//@@REPLACE_GLOBAL_INIT@@";
+    private static final String REPLACE_SETUP_INIT = "//@@REPLACE_SETUP_INIT@@";
     private static final String REPLACE_SETUP = "//@@REPLACE_SETUP@@";
     private static final String REPLACE_LOOP = "//@@REPLACE_LOOP@@";
     private static final String REPLACE_GLOBAL_FUNCTIONS = "//@@REPLACE_GLOBAL_FUNCTIONS@@";
@@ -46,6 +47,8 @@ class FirmwareOTAService {
             "\n" +
             "void checkNewFirmwareAndUpdateIfNeeded();\n" +
             "void updateFirmware();";
+
+    private static final String SETUP_INIT_CODE = " checkNewFirmwareAndUpdateIfNeeded();\n";
 
     private static final String SETUP_CODE = "Serial.begin(115200);\n" +
             "  delay(5000);\n" +
@@ -119,6 +122,7 @@ class FirmwareOTAService {
 
     public String injectOTACode(String sourceCode, String firmwareVersion) {
         String code = sourceCode.replace(REPLACE_GLOBAL_INIT, GLOBAL_INIT_CODE);
+        code = code.replace(REPLACE_SETUP_INIT, SETUP_INIT_CODE);
         code = code.replace(REPLACE_SETUP, SETUP_CODE);
         code = code.replace(REPLACE_LOOP, LOOP_CODE);
         code = code.replace(REPLACE_GLOBAL_FUNCTIONS, GLOBAL_FUNCTIONS_CODE);
