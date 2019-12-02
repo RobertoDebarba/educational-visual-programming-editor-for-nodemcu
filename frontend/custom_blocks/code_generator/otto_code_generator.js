@@ -39,7 +39,7 @@ class OttoCodeGenerator {
             #define PIN_LEFTFOOT D0
             #define PIN_RIGHTFOOT D1
             #define PIN_NOISE_SENSOR 1 //TX - NOT USED
-            #define PIN_BUZZER 13
+            #define PIN_BUZZER 3
             #define PIN_USTRIGGER D4
             #define PIN_USECHO D5
             
