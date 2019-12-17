@@ -57,8 +57,7 @@ class FirmwareOTAService {
             "\n" +
             "  wifiManager.autoConnect(\"Otto FURB\");";
 
-    private static final String LOOP_CODE = "  checkNewFirmwareAndUpdateIfNeeded();\n" +
-            "  delay(5000);";
+    private static final String LOOP_CODE = "  //checkNewFirmwareAndUpdateIfNeeded();";
 
     private static final String GLOBAL_FUNCTIONS_CODE = "void checkNewFirmwareAndUpdateIfNeeded()\n" +
             "{\n" +
