@@ -1,0 +1,1290 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLCollaboration",
+					"_id": "AAAAAAFulKWLHGQ9XTY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Collaboration1",
+					"ownedElements": [
+						{
+							"_type": "UMLInteraction",
+							"_id": "AAAAAAFulKWLHGQ+pu4=",
+							"_parent": {
+								"$ref": "AAAAAAFulKWLHGQ9XTY="
+							},
+							"name": "Interaction1",
+							"ownedElements": [
+								{
+									"_type": "UMLSequenceDiagram",
+									"_id": "AAAAAAFulKWLHWQ/AWY=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Atualizar firmware",
+									"ownedViews": [
+										{
+											"_type": "UMLFrameView",
+											"_id": "AAAAAAFulKWLHWRAr3s=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"subViews": [
+												{
+													"_type": "LabelView",
+													"_id": "AAAAAAFulKWLHWRB7bM=",
+													"_parent": {
+														"$ref": "AAAAAAFulKWLHWRAr3s="
+													},
+													"font": "Arial;13;0",
+													"left": 94.97900390625,
+													"top": 5,
+													"width": 105.025390625,
+													"height": 13,
+													"text": "Atualizar firmware"
+												},
+												{
+													"_type": "LabelView",
+													"_id": "AAAAAAFulKWLHWRCHmQ=",
+													"_parent": {
+														"$ref": "AAAAAAFulKWLHWRAr3s="
+													},
+													"font": "Arial;13;1",
+													"left": 29,
+													"top": 5,
+													"width": 60.97900390625,
+													"height": 13,
+													"text": "interaction"
+												}
+											],
+											"font": "Arial;13;0",
+											"left": 24,
+											"width": 601,
+											"height": 393,
+											"nameLabel": {
+												"$ref": "AAAAAAFulKWLHWRB7bM="
+											},
+											"frameTypeLabel": {
+												"$ref": "AAAAAAFulKWLHWRCHmQ="
+											}
+										},
+										{
+											"_type": "UMLSeqLifelineView",
+											"_id": "AAAAAAFulKiTvGRT4/o=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFulKiTvGRSSX0="
+											},
+											"subViews": [
+												{
+													"_type": "UMLNameCompartmentView",
+													"_id": "AAAAAAFulKiTvGRUuZw=",
+													"_parent": {
+														"$ref": "AAAAAAFulKiTvGRT4/o="
+													},
+													"model": {
+														"$ref": "AAAAAAFulKiTvGRSSX0="
+													},
+													"subViews": [
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFulKiTvGRV3Dg=",
+															"_parent": {
+																"$ref": "AAAAAAFulKiTvGRUuZw="
+															},
+															"visible": false,
+															"font": "Arial;13;0",
+															"left": 688,
+															"height": 13
+														},
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFulKiTvGRW2+Y=",
+															"_parent": {
+																"$ref": "AAAAAAFulKiTvGRUuZw="
+															},
+															"font": "Arial;13;1",
+															"left": 477,
+															"top": 47,
+															"width": 82.2236328125,
+															"height": 13,
+															"text": "Repositório"
+														},
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFulKiTvGRXBMs=",
+															"_parent": {
+																"$ref": "AAAAAAFulKiTvGRUuZw="
+															},
+															"visible": false,
+															"font": "Arial;13;0",
+															"left": 688,
+															"width": 106.20263671875,
+															"height": 13,
+															"text": "(from Interaction1)"
+														},
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFulKiTvGRYb98=",
+															"_parent": {
+																"$ref": "AAAAAAFulKiTvGRUuZw="
+															},
+															"visible": false,
+															"font": "Arial;13;0",
+															"left": 688,
+															"height": 13,
+															"horizontalAlignment": 1
+														}
+													],
+													"font": "Arial;13;0",
+													"left": 472,
+													"top": 40,
+													"width": 92.2236328125,
+													"height": 40,
+													"stereotypeLabel": {
+														"$ref": "AAAAAAFulKiTvGRV3Dg="
+													},
+													"nameLabel": {
+														"$ref": "AAAAAAFulKiTvGRW2+Y="
+													},
+													"namespaceLabel": {
+														"$ref": "AAAAAAFulKiTvGRXBMs="
+													},
+													"propertyLabel": {
+														"$ref": "AAAAAAFulKiTvGRYb98="
+													}
+												},
+												{
+													"_type": "UMLLinePartView",
+													"_id": "AAAAAAFulKiTvGRZlUA=",
+													"_parent": {
+														"$ref": "AAAAAAFulKiTvGRT4/o="
+													},
+													"model": {
+														"$ref": "AAAAAAFulKiTvGRSSX0="
+													},
+													"font": "Arial;13;0",
+													"left": 518,
+													"top": 80,
+													"width": 1,
+													"height": 265
+												}
+											],
+											"font": "Arial;13;0",
+											"left": 472,
+											"top": 40,
+											"width": 92.2236328125,
+											"height": 305,
+											"nameCompartment": {
+												"$ref": "AAAAAAFulKiTvGRUuZw="
+											},
+											"linePart": {
+												"$ref": "AAAAAAFulKiTvGRZlUA="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFump/6bkV0Hpw=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFump/6bkVzI8g="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFump/6bkV1HME=",
+													"_parent": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"model": {
+														"$ref": "AAAAAAFump/6bkVzI8g="
+													},
+													"font": "Arial;13;0",
+													"left": 136,
+													"top": 108,
+													"width": 169.79345703125,
+													"height": 13,
+													"alpha": 1.582158472768032,
+													"distance": 88.0056816347672,
+													"hostEdge": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"edgePosition": 1,
+													"text": "1 : Nova versão do firmware?"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFump/6bkV2Q0o=",
+													"_parent": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"model": {
+														"$ref": "AAAAAAFump/6bkVzI8g="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 156,
+													"top": 108,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFump/6bkV3AI8=",
+													"_parent": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"model": {
+														"$ref": "AAAAAAFump/6bkVzI8g="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 122,
+													"top": 109,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFump/6bkV4s0g=",
+													"_parent": {
+														"$ref": "AAAAAAFump/6bkV0Hpw="
+													},
+													"model": {
+														"$ref": "AAAAAAFump/6bkVzI8g="
+													},
+													"font": "Arial;13;0",
+													"left": 95,
+													"top": 125,
+													"width": 14,
+													"height": 44
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"tail": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"points": "102:105;132:105;132:125;108:125",
+											"nameLabel": {
+												"$ref": "AAAAAAFump/6bkV1HME="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFump/6bkV2Q0o="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFump/6bkV3AI8="
+											},
+											"activation": {
+												"$ref": "AAAAAAFump/6bkV4s0g="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFumqBhIEWMyvs=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFumqBhIEWLv6Y="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqBhIEWN50E=",
+													"_parent": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqBhIEWLv6Y="
+													},
+													"font": "Arial;13;0",
+													"left": 224,
+													"top": 152,
+													"width": 164.72802734375,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"edgePosition": 1,
+													"text": "2 : Obter versão do firmware"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqBhIEWOwRs=",
+													"_parent": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqBhIEWLv6Y="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 306,
+													"top": 137,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqBhIEWPKvA=",
+													"_parent": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqBhIEWLv6Y="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 306,
+													"top": 172,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFumqBhIEWQlpA=",
+													"_parent": {
+														"$ref": "AAAAAAFumqBhIEWMyvs="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqBhIEWLv6Y="
+													},
+													"font": "Arial;13;0",
+													"left": 511,
+													"top": 168,
+													"width": 14,
+													"height": 29
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFulKiTvGRZlUA="
+											},
+											"tail": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"points": "102:168;511:168",
+											"nameLabel": {
+												"$ref": "AAAAAAFumqBhIEWN50E="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFumqBhIEWOwRs="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFumqBhIEWPKvA="
+											},
+											"activation": {
+												"$ref": "AAAAAAFumqBhIEWQlpA="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFumqEHBEW4DD0=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFumqEHA0W3VmU="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqEHBEW524E=",
+													"_parent": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqEHA0W3VmU="
+													},
+													"font": "Arial;13;0",
+													"left": 135,
+													"top": 208,
+													"width": 331.65234375,
+													"height": 13,
+													"alpha": 1.4999083876118682,
+													"distance": 169.42549985170473,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"edgePosition": 1,
+													"text": "3 : Atualizar firmware se versão for mais nova que a atual"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqEHBEW6Wxc=",
+													"_parent": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqEHA0W3VmU="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 156,
+													"top": 195,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqEHBEW7jq0=",
+													"_parent": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqEHA0W3VmU="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 122,
+													"top": 196,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFumqEHBEW8Ato=",
+													"_parent": {
+														"$ref": "AAAAAAFumqEHBEW4DD0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqEHA0W3VmU="
+													},
+													"font": "Arial;13;0",
+													"left": 95,
+													"top": 212,
+													"width": 14,
+													"height": 45
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"tail": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"points": "102:192;132:192;132:212;108:212",
+											"nameLabel": {
+												"$ref": "AAAAAAFumqEHBEW524E="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFumqEHBEW6Wxc="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFumqEHBEW7jq0="
+											},
+											"activation": {
+												"$ref": "AAAAAAFumqEHBEW8Ato="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFumqCrRkWirps=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFumqCrRkWhv7A="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqCrRkWjLs8=",
+													"_parent": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqCrRkWhv7A="
+													},
+													"font": "Arial;13;0",
+													"left": 238,
+													"top": 175,
+													"width": 130.05712890625,
+													"height": 13,
+													"alpha": -1.2793404497484744,
+													"distance": 10.44030650891055,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"edgePosition": 1,
+													"text": "4 : Versão do firmware"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqCrRkWkc1Q=",
+													"_parent": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqCrRkWhv7A="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 305,
+													"top": 211,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqCrRkWlMZM=",
+													"_parent": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqCrRkWhv7A="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 306,
+													"top": 176,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFumqCrRkWmV2g=",
+													"_parent": {
+														"$ref": "AAAAAAFumqCrRkWirps="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqCrRkWhv7A="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 102,
+													"top": 192,
+													"width": 14,
+													"height": 25
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"tail": {
+												"$ref": "AAAAAAFulKiTvGRZlUA="
+											},
+											"points": "511:192;102:192",
+											"nameLabel": {
+												"$ref": "AAAAAAFumqCrRkWjLs8="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFumqCrRkWkc1Q="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFumqCrRkWlMZM="
+											},
+											"activation": {
+												"$ref": "AAAAAAFumqCrRkWmV2g="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFumqGDY0XPMf4=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFumqGDY0XOCaU="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqGDY0XQhFQ=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGDY0XOCaU="
+													},
+													"font": "Arial;13;0",
+													"left": 252,
+													"top": 239,
+													"width": 104.025390625,
+													"height": 13,
+													"alpha": -4.514994382073455,
+													"distance": 10.198039027185569,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"edgePosition": 1,
+													"text": "5 : Obter firmware"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqGDY0XRxMk=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGDY0XOCaU="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 306,
+													"top": 225,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqGDY0XSaHs=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGDY0XOCaU="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 306,
+													"top": 260,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFumqGDY0XTkgs=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGDY0XPMf4="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGDY0XOCaU="
+													},
+													"font": "Arial;13;0",
+													"left": 511,
+													"top": 256,
+													"width": 14,
+													"height": 29
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFulKiTvGRZlUA="
+											},
+											"tail": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"points": "102:256;511:256",
+											"nameLabel": {
+												"$ref": "AAAAAAFumqGDY0XQhFQ="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFumqGDY0XRxMk="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFumqGDY0XSaHs="
+											},
+											"activation": {
+												"$ref": "AAAAAAFumqGDY0XTkgs="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFumqHq8kYbaG0=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFumqHq8kYa7kc="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqHq8kYcJLA=",
+													"_parent": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqHq8kYa7kc="
+													},
+													"font": "Arial;13;0",
+													"left": 135,
+													"top": 296,
+													"width": 129.32080078125,
+													"height": 13,
+													"alpha": 1.3961231529544387,
+													"distance": 69.05070600652827,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"edgePosition": 1,
+													"text": "6 : Atualizar firmware"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqHq8kYdyBw=",
+													"_parent": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqHq8kYa7kc="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 156,
+													"top": 283,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqHq8kYeABs=",
+													"_parent": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqHq8kYa7kc="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 122,
+													"top": 284,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFumqHq8kYf0rU=",
+													"_parent": {
+														"$ref": "AAAAAAFumqHq8kYbaG0="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqHq8kYa7kc="
+													},
+													"font": "Arial;13;0",
+													"left": 95,
+													"top": 300,
+													"width": 14,
+													"height": 29
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"tail": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"points": "102:280;132:280;132:300;108:300",
+											"nameLabel": {
+												"$ref": "AAAAAAFumqHq8kYcJLA="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFumqHq8kYdyBw="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFumqHq8kYeABs="
+											},
+											"activation": {
+												"$ref": "AAAAAAFumqHq8kYf0rU="
+											}
+										},
+										{
+											"_type": "UMLSeqLifelineView",
+											"_id": "AAAAAAFummqakHPUUR4=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFummqakHPTUkg="
+											},
+											"subViews": [
+												{
+													"_type": "UMLNameCompartmentView",
+													"_id": "AAAAAAFummqakHPVT6c=",
+													"_parent": {
+														"$ref": "AAAAAAFummqakHPUUR4="
+													},
+													"model": {
+														"$ref": "AAAAAAFummqakHPTUkg="
+													},
+													"subViews": [
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFummqakHPWwvQ=",
+															"_parent": {
+																"$ref": "AAAAAAFummqakHPVT6c="
+															},
+															"visible": false,
+															"font": "Arial;13;0",
+															"left": -140,
+															"height": 13
+														},
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFummqakHPXbDU=",
+															"_parent": {
+																"$ref": "AAAAAAFummqakHPVT6c="
+															},
+															"font": "Arial;13;1",
+															"left": 21,
+															"top": 87,
+															"width": 161.83349609375,
+															"height": 13,
+															"text": ": Robô"
+														},
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFummqakHPYF+Q=",
+															"_parent": {
+																"$ref": "AAAAAAFummqakHPVT6c="
+															},
+															"visible": false,
+															"font": "Arial;13;0",
+															"left": -140,
+															"width": 106.20263671875,
+															"height": 13,
+															"text": "(from Interaction1)"
+														},
+														{
+															"_type": "LabelView",
+															"_id": "AAAAAAFummqakHPZmj8=",
+															"_parent": {
+																"$ref": "AAAAAAFummqakHPVT6c="
+															},
+															"visible": false,
+															"font": "Arial;13;0",
+															"left": -140,
+															"height": 13,
+															"horizontalAlignment": 1
+														}
+													],
+													"font": "Arial;13;0",
+													"left": 16,
+													"top": 80,
+													"width": 171.83349609375,
+													"height": 25,
+													"stereotypeLabel": {
+														"$ref": "AAAAAAFummqakHPWwvQ="
+													},
+													"nameLabel": {
+														"$ref": "AAAAAAFummqakHPXbDU="
+													},
+													"namespaceLabel": {
+														"$ref": "AAAAAAFummqakHPYF+Q="
+													},
+													"propertyLabel": {
+														"$ref": "AAAAAAFummqakHPZmj8="
+													}
+												},
+												{
+													"_type": "UMLLinePartView",
+													"_id": "AAAAAAFummqakHPaD18=",
+													"_parent": {
+														"$ref": "AAAAAAFummqakHPUUR4="
+													},
+													"model": {
+														"$ref": "AAAAAAFummqakHPTUkg="
+													},
+													"font": "Arial;13;0",
+													"left": 102,
+													"top": 105,
+													"width": 1,
+													"height": 248
+												}
+											],
+											"font": "Arial;13;0",
+											"left": 16,
+											"top": 40,
+											"width": 171.83349609375,
+											"height": 313,
+											"stereotypeDisplay": "icon",
+											"nameCompartment": {
+												"$ref": "AAAAAAFummqakHPVT6c="
+											},
+											"linePart": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAFumqGqukXmsKg=",
+											"_parent": {
+												"$ref": "AAAAAAFulKWLHWQ/AWY="
+											},
+											"model": {
+												"$ref": "AAAAAAFumqGqukXlOoQ="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqGqukXn8/Q=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGqukXlOoQ="
+													},
+													"font": "Arial;13;0",
+													"left": 266,
+													"top": 263,
+													"width": 79.4599609375,
+													"height": 13,
+													"alpha": -1.4711286644028423,
+													"distance": 10.04987562112089,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"edgePosition": 1,
+													"text": "7 : Firmware"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqGqukXok5Q=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGqukXlOoQ="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 305,
+													"top": 299,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAFumqGqukXp3IQ=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGqukXlOoQ="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 306,
+													"top": 264,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAFumqGqukXqXRQ=",
+													"_parent": {
+														"$ref": "AAAAAAFumqGqukXmsKg="
+													},
+													"model": {
+														"$ref": "AAAAAAFumqGqukXlOoQ="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"left": 102,
+													"top": 280,
+													"width": 14,
+													"height": 25
+												}
+											],
+											"font": "Arial;13;0",
+											"head": {
+												"$ref": "AAAAAAFummqakHPaD18="
+											},
+											"tail": {
+												"$ref": "AAAAAAFulKiTvGRZlUA="
+											},
+											"points": "511:280;102:280",
+											"nameLabel": {
+												"$ref": "AAAAAAFumqGqukXn8/Q="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAFumqGqukXok5Q="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAFumqGqukXp3IQ="
+											},
+											"activation": {
+												"$ref": "AAAAAAFumqGqukXqXRQ="
+											}
+										}
+									]
+								}
+							],
+							"messages": [
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFump/6bkVzI8g=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Nova versão do firmware?",
+									"source": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"target": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									}
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFumqBhIEWLv6Y=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Obter versão do firmware",
+									"source": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"target": {
+										"$ref": "AAAAAAFulKiTvGRSSX0="
+									}
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFumqEHA0W3VmU=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Atualizar firmware se versão for mais nova que a atual",
+									"source": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"target": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									}
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFumqCrRkWhv7A=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Versão do firmware",
+									"source": {
+										"$ref": "AAAAAAFulKiTvGRSSX0="
+									},
+									"target": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"messageSort": "reply"
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFumqGDY0XOCaU=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Obter firmware",
+									"source": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"target": {
+										"$ref": "AAAAAAFulKiTvGRSSX0="
+									}
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFumqHq8kYa7kc=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Atualizar firmware",
+									"source": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"target": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									}
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAFumqGqukXlOoQ=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Firmware",
+									"source": {
+										"$ref": "AAAAAAFulKiTvGRSSX0="
+									},
+									"target": {
+										"$ref": "AAAAAAFummqakHPTUkg="
+									},
+									"messageSort": "reply"
+								}
+							],
+							"participants": [
+								{
+									"_type": "UMLLifeline",
+									"_id": "AAAAAAFulKiTvGRSSX0=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"name": "Repositório",
+									"represent": {
+										"$ref": "AAAAAAFulKiTvGRR9sY="
+									},
+									"isMultiInstance": false
+								},
+								{
+									"_type": "UMLLifeline",
+									"_id": "AAAAAAFummqakHPTUkg=",
+									"_parent": {
+										"$ref": "AAAAAAFulKWLHGQ+pu4="
+									},
+									"represent": {
+										"$ref": "AAAAAAFummqakHPSdVA="
+									},
+									"isMultiInstance": false
+								}
+							]
+						}
+					],
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFulKiTvGRR9sY=",
+							"_parent": {
+								"$ref": "AAAAAAFulKWLHGQ9XTY="
+							},
+							"name": "Role1"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFulKq/qGR88Kg=",
+							"_parent": {
+								"$ref": "AAAAAAFulKWLHGQ9XTY="
+							},
+							"name": "Role2",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFulKrxDGScxh0=",
+							"_parent": {
+								"$ref": "AAAAAAFulKWLHGQ9XTY="
+							},
+							"name": "Role3",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFulKwjkGTX/lM=",
+							"_parent": {
+								"$ref": "AAAAAAFulKWLHGQ9XTY="
+							},
+							"name": "Role4",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFummqakHPSdVA=",
+							"_parent": {
+								"$ref": "AAAAAAFulKWLHGQ9XTY="
+							},
+							"name": "Role5",
+							"type": {
+								"$ref": "AAAAAAFummqKr3PPRzg="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLActor",
+					"_id": "AAAAAAFummqKr3PPRzg=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Robô"
+				}
+			]
+		}
+	]
+}

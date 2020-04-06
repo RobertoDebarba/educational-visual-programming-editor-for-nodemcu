@@ -1,5 +1,17 @@
-# educational-visual-programming-editor-for-nodemcu
-Educational visual programming editor for NodeMCU
+# Educational visual programming language for NodeMCU
+Although computing is present in all sectors of society today, there is a lack of knowledge and interest of the population in this area. One way of making scientific and technological knowledge viable and at the same time stimulate creativity and experimentation is with the use of educational robotics. With the objective of enabling access to robotics in the classroom, through hardware alternatives in relation to the products available on the market, looking to facilitate the teaching of programming logic and increase students' interest in the area, this work presents the development of a visual programming language based on blocks to support the teaching of programming logic in schools with the aid of educational robotics, using the NodeMCU Esp8266 microcontroller. This work also presents the Otto DIY project and its use, adapting its operation to NodeMCU.
+
+*Plataforma de Programação Visual para NodeMCU*  
+  
+*Apesar da computação estar presente em todos os setores da sociedade hoje, existe uma carência de conhecimento e interesse da população nesta área. Uma forma de viabilizar o conhecimento científicotecnológico e ao mesmo tempo estimular a criatividade e a experimentação é a utilização da robótica educacional. Com o objetivo de possibilitar o acesso à robótica em sala de aula, através de alternativas de hardware em relação aos produtos existentes no mercado, buscando facilitar o ensino de lógica de programação e aumentar o interesse dos alunos pelo tema, este trabalho apresenta o desenvolvimento de uma plataforma para programação visual baseada em blocos para suporte ao ensino de lógica de programação nas escolas com o auxílio de robótica educacional, usando o microcontrolador NodeMCU Esp8266. Este trabalho também apresenta o projeto Otto DIY e sua utilização, adaptando seu funcionamento para o microcontrolador em questão.*  
+  
+**Read the complete [paper here](https://github.com/RobertoDebarba/educational-visual-programming-language-for-esp8266/blob/master/doc/paper.pdf).**
+  
+<img src="https://github.com/RobertoDebarba/educational-visual-programming-language-for-esp8266/blob/master/screenshots/scr2.png" width="800" width="auto">
+<img src="https://github.com/RobertoDebarba/educational-visual-programming-language-for-esp8266/blob/master/screenshots/scr3.png" width="800" width="auto">
+<img src="https://github.com/RobertoDebarba/educational-visual-programming-language-for-esp8266/blob/master/screenshots/scr4.png" width="800" width="auto">
+
+## How to run
 
 ## Frontend
 
@@ -18,18 +30,10 @@ Requirements
     * AWS_SECRET_ACCESS_KEY=?
 * Set on application.properties:
     * aws.s3.bucketname
-    * aws.iot.clientendpoint 
-    * aws.iot.thingname
-* Copy AWS IoT Thing certificates to:
-    * resources/br/com/robertodebarba/aws/aws-iot-certificate.pem.crt
-    * resources/br/com/robertodebarba/aws/aws-iot-private.pem.key
-* Copy firmware folder to ~/educational-visual-programming-language-for-esp8266/source
+* Copy firmware folder to ~/educational-visual-programming-language-for-esp8266/" whith name "source"
 
 Run
-* ./mvnw compile quarkus:dev
-
-Getting Started
-https://quarkus.io/guides/getting-started-guide
+* cmd "./mvnw compile quarkus:dev"
 
 ## Firmware
 
@@ -45,15 +49,17 @@ Requirements
 * Set on platformio.ini:
     * upload_port 
 * Set on secrets.h:
-    * THINGNAME
-    * TIME_ZONE
-    * USE_SUMMER_TIME_DST
-    * MQTT_HOST
     * S3_BUCKET
     * S3_FINGETPRINT
-    * cacert
-    * client_cert
-    * privkey
 
-Run
-* platformio run -t upload
+Gravação do firmware:
+* Copy the file "example/bootstrap.cpp" to "src/src.ino"
+* cmd "platformio run -t upload"
+
+## Authors
+
+[Roberto Luiz Debarba](https://github.com/RobertoDebarba)
+
+## License
+
+The codebase is licensed under [GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.html).
